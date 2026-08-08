@@ -1,0 +1,2694 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#e9efd8">
+<title>Hikari — Solar Transit Puzzle</title>
+<style>
+  :root{
+    --ink:#18322d;
+    --ink2:#35554c;
+    --rice:#f4f1df;
+    --paper:#fbf9ef;
+    --moss:#6d8d69;
+    --moss2:#94ad82;
+    --bamboo:#b9c89b;
+    --water:#73aeb0;
+    --water2:#b9d8d3;
+    --sun:#e0ad52;
+    --sakura:#d996a5;
+    --terra:#a76d50;
+    --shadow:rgba(30,54,46,.18);
+    --cell:calc((100vw - 46px)/6);
+    --gap:4px;
+  }
+
+  *{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  html,body{
+    margin:0;
+    min-height:100%;
+    background:
+      radial-gradient(circle at 15% 8%,rgba(217,150,165,.20),transparent 24%),
+      radial-gradient(circle at 85% 14%,rgba(115,174,176,.16),transparent 26%),
+      linear-gradient(160deg,#eef3df,#f9f5e7 55%,#dce8d1);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif;
+    overscroll-behavior:none;
+  }
+
+  body{
+    min-height:100vh;
+    min-height:100dvh;
+    padding:max(14px,env(safe-area-inset-top)) 14px max(18px,env(safe-area-inset-bottom));
+  }
+
+  button{font:inherit}
+
+  .app{
+    max-width:540px;
+    margin:0 auto;
+  }
+
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:10px;
+  }
+
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+
+  .sunmark{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:
+      radial-gradient(circle at 38% 35%,#fff4bf 0 12%,#f0ca70 13% 44%,#d69d42 45% 100%);
+    box-shadow:
+      0 4px 14px rgba(176,132,51,.28),
+      inset 0 0 0 2px rgba(255,255,255,.4);
+    position:relative;
+    flex:0 0 auto;
+  }
+
+  .sunmark:after{
+    content:"";
+    position:absolute;
+    inset:8px;
+    border:1px solid rgba(39,73,60,.35);
+    border-radius:50%;
+  }
+
+  h1{
+    font-size:22px;
+    letter-spacing:.08em;
+    margin:0;
+    font-weight:800;
+  }
+
+  .sub{
+    font-size:10px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--ink2);
+    opacity:.8;
+    margin-top:1px;
+  }
+
+  .iconbtn{
+    border:1px solid rgba(44,78,66,.16);
+    background:rgba(255,255,255,.48);
+    color:var(--ink);
+    border-radius:14px;
+    width:42px;
+    height:42px;
+    display:grid;
+    place-items:center;
+    font-size:18px;
+    box-shadow:0 4px 14px rgba(51,75,61,.08);
+  }
+
+  .panel{
+    background:rgba(251,249,239,.72);
+    border:1px solid rgba(50,77,65,.13);
+    box-shadow:0 8px 24px rgba(50,77,65,.09);
+    backdrop-filter:blur(10px);
+    border-radius:18px;
+  }
+
+  .difficulty{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    padding:5px;
+    gap:4px;
+    margin-bottom:10px;
+  }
+
+  .difficulty button{
+    border:0;
+    border-radius:13px;
+    padding:9px 3px;
+    background:transparent;
+    color:var(--ink2);
+    font-weight:700;
+    font-size:12px;
+  }
+
+  .difficulty button.active{
+    background:var(--ink);
+    color:var(--paper);
+    box-shadow:0 3px 10px rgba(24,50,45,.22);
+  }
+
+  .difficulty small{
+    display:block;
+    font-size:8px;
+    opacity:.65;
+    margin-top:2px;
+    font-weight:700;
+    letter-spacing:.06em;
+  }
+
+  .hud{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr 1fr;
+    gap:6px;
+    margin-bottom:10px;
+  }
+
+  .stat{
+    padding:9px 7px;
+    text-align:center;
+  }
+
+  .stat .label{
+    font-size:8px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink2);
+    opacity:.75;
+  }
+
+  .stat .value{
+    font-weight:800;
+    font-size:19px;
+    margin-top:2px;
+    font-variant-numeric:tabular-nums;
+  }
+
+  .stat .mini{
+    font-size:8px;
+    color:var(--ink2);
+    min-height:11px;
+  }
+
+  .boardwrap{
+    position:relative;
+    margin:0 auto 12px;
+    padding:8px;
+    background:
+      linear-gradient(145deg,rgba(255,255,255,.35),rgba(255,255,255,0)),
+      #c9d5ad;
+    border-radius:22px;
+    box-shadow:
+      0 12px 28px rgba(46,78,63,.18),
+      inset 0 0 0 1px rgba(52,81,68,.15);
+  }
+
+  .boardwrap:before,
+  .boardwrap:after{
+    content:"";
+    position:absolute;
+    pointer-events:none;
+  }
+
+  .boardwrap:before{
+    left:18px;
+    right:18px;
+    top:4px;
+    height:4px;
+    border-radius:50%;
+    background:linear-gradient(90deg,transparent,var(--sakura),transparent);
+    opacity:.6;
+  }
+
+  .boardwrap:after{
+    right:-9px;
+    top:calc(8px + (100% - 16px)/3);
+    width:18px;
+    height:calc((100% - 16px)/6);
+    background:linear-gradient(90deg,#8aa987,#5d7f69);
+    clip-path:polygon(0 16%,100% 0,100% 100%,0 84%);
+    box-shadow:3px 0 8px rgba(48,80,64,.15);
+  }
+
+  .board{
+    width:100%;
+    aspect-ratio:1/1;
+    position:relative;
+    overflow:hidden;
+    border-radius:16px;
+    background:
+      radial-gradient(circle at 18% 20%,rgba(217,150,165,.18) 0 2px,transparent 3px),
+      radial-gradient(circle at 74% 78%,rgba(255,255,255,.45) 0 2px,transparent 3px),
+      linear-gradient(rgba(39,71,59,.085) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(39,71,59,.085) 1px,transparent 1px),
+      linear-gradient(145deg,#e7ead0,#d8e3c4);
+    background-size:
+      37px 43px,
+      51px 61px,
+      calc(100%/6) calc(100%/6),
+      calc(100%/6) calc(100%/6),
+      100% 100%;
+    box-shadow:
+      inset 0 0 0 2px rgba(54,83,69,.17),
+      inset 0 12px 30px rgba(255,255,255,.25);
+    touch-action:none;
+  }
+
+  .board .waterline{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:10%;
+    height:9%;
+    background:linear-gradient(90deg,transparent,rgba(111,177,178,.16),transparent);
+    transform:skewY(-2deg);
+    pointer-events:none;
+  }
+
+  .exitlabel{
+    position:absolute;
+    right:-2px;
+    top:calc(100%/3 + 4px);
+    height:calc(100%/6 - 8px);
+    display:flex;
+    align-items:center;
+    color:rgba(24,50,45,.50);
+    font-size:8px;
+    writing-mode:vertical-rl;
+    letter-spacing:.15em;
+    z-index:1;
+    pointer-events:none;
+  }
+
+  .car{
+    position:absolute;
+    padding:2px;
+    transition:left .13s ease,top .13s ease;
+    touch-action:none;
+    user-select:none;
+    z-index:3;
+  }
+
+  .car.dragging{
+    transition:none;
+    z-index:20;
+    filter:brightness(1.03);
+  }
+
+  .carbody{
+    width:100%;
+    height:100%;
+    border-radius:12px;
+    position:relative;
+    overflow:hidden;
+    border:1px solid rgba(30,58,48,.22);
+    box-shadow:
+      0 4px 9px rgba(45,75,62,.16),
+      inset 0 1px 0 rgba(255,255,255,.55);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .carbody:before{
+    content:"";
+    position:absolute;
+    inset:17% 13%;
+    border-radius:8px;
+    background:
+      linear-gradient(135deg,rgba(255,255,255,.52),rgba(127,177,170,.10)),
+      repeating-linear-gradient(90deg,rgba(35,77,68,.18) 0 2px,transparent 2px 7px);
+    border:1px solid rgba(35,69,60,.14);
+  }
+
+  .carbody:after{
+    content:"";
+    position:absolute;
+    left:10%;
+    right:10%;
+    bottom:8%;
+    height:4px;
+    border-radius:8px;
+    background:rgba(29,65,55,.21);
+  }
+
+  .car.c1 .carbody{
+    background:linear-gradient(145deg,#edf0d7,#9fb58b);
+  }
+
+  .car.c2 .carbody{
+    background:linear-gradient(145deg,#e7e2c9,#b9a878);
+  }
+
+  .car.c3 .carbody{
+    background:linear-gradient(145deg,#d8e9df,#7eaea6);
+  }
+
+  .car.c4 .carbody{
+    background:linear-gradient(145deg,#f0dfd7,#c28b76);
+  }
+
+  .car.c5 .carbody{
+    background:linear-gradient(145deg,#e8e5d7,#9f9e8b);
+  }
+
+  .car.target .carbody{
+    background:linear-gradient(135deg,#fff3bb,#dfae4f 62%,#c98a35);
+    border-color:rgba(100,70,17,.28);
+    box-shadow:
+      0 5px 13px rgba(178,125,39,.26),
+      inset 0 1px 0 rgba(255,255,255,.75);
+  }
+
+  .car.target .carbody:before{
+    background:
+      linear-gradient(135deg,rgba(255,255,255,.75),rgba(98,161,155,.35)),
+      repeating-linear-gradient(90deg,rgba(24,50,45,.18) 0 2px,transparent 2px 7px);
+  }
+
+  .car.target .glyph{
+    z-index:2;
+    font-weight:900;
+    font-size:18px;
+    color:#5a4a21;
+    text-shadow:0 1px rgba(255,255,255,.55);
+  }
+
+  .car.hint .carbody{
+    animation:hintpulse .7s ease-in-out 3;
+  }
+
+  @keyframes hintpulse{
+    50%{
+      box-shadow:
+        0 0 0 5px rgba(224,173,82,.35),
+        0 6px 14px rgba(69,90,64,.20);
+      transform:scale(1.025);
+    }
+  }
+
+  .moveghost{
+    position:absolute;
+    pointer-events:none;
+    background:rgba(255,255,255,.20);
+    border:1px dashed rgba(39,75,63,.24);
+    border-radius:12px;
+    z-index:2;
+  }
+
+  .controls{
+    display:grid;
+    grid-template-columns:1.25fr 1fr 1fr;
+    gap:8px;
+    margin-bottom:10px;
+  }
+
+  .btn{
+    border:0;
+    border-radius:15px;
+    padding:13px 8px;
+    font-weight:800;
+    letter-spacing:.03em;
+    box-shadow:0 5px 14px rgba(44,72,60,.11);
+  }
+
+  .btn.primary{
+    background:var(--ink);
+    color:var(--paper);
+  }
+
+  .btn.secondary{
+    background:rgba(255,255,255,.62);
+    color:var(--ink);
+    border:1px solid rgba(41,72,60,.13);
+  }
+
+  .btn.hint{
+    background:linear-gradient(145deg,#f3e7bd,#e4c67a);
+    color:#493d20;
+  }
+
+  .lower{
+    padding:11px 13px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+
+  .lower .left{
+    font-size:11px;
+    color:var(--ink2);
+    line-height:1.35;
+  }
+
+  .lower strong{
+    color:var(--ink);
+  }
+
+  .rankchip{
+    white-space:nowrap;
+    border-radius:999px;
+    background:rgba(24,50,45,.08);
+    padding:7px 10px;
+    font-size:10px;
+    font-weight:800;
+  }
+
+  .toast{
+    position:fixed;
+    left:50%;
+    bottom:calc(22px + env(safe-area-inset-bottom));
+    transform:translate(-50%,18px);
+    background:rgba(24,50,45,.94);
+    color:#fffdf1;
+    padding:10px 14px;
+    border-radius:14px;
+    font-weight:700;
+    font-size:12px;
+    opacity:0;
+    pointer-events:none;
+    transition:.2s;
+    z-index:100;
+    max-width:85vw;
+    text-align:center;
+    box-shadow:0 8px 26px rgba(0,0,0,.20);
+  }
+
+  .toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+  }
+
+  .modal{
+    position:fixed;
+    inset:0;
+    background:rgba(15,35,29,.42);
+    backdrop-filter:blur(8px);
+    z-index:200;
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    padding:14px;
+  }
+
+  .modal.show{
+    display:flex;
+  }
+
+  .sheet{
+    width:min(540px,100%);
+    max-height:88dvh;
+    overflow:auto;
+    background:#f7f5e8;
+    border-radius:24px 24px 18px 18px;
+    padding:18px;
+    box-shadow:0 -12px 40px rgba(20,45,37,.24);
+  }
+
+  .sheethead{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:8px;
+  }
+
+  .sheet h2{
+    margin:0;
+    font-size:22px;
+  }
+
+  .close{
+    border:0;
+    background:rgba(24,50,45,.08);
+    border-radius:50%;
+    width:36px;
+    height:36px;
+    font-size:20px;
+    color:var(--ink);
+  }
+
+  .resultHero{
+    text-align:center;
+    padding:16px 6px 8px;
+  }
+
+  .bigscore{
+    font-size:44px;
+    font-weight:900;
+    letter-spacing:-.03em;
+  }
+
+  .grade{
+    display:inline-block;
+    margin-top:5px;
+    padding:6px 10px;
+    border-radius:999px;
+    background:rgba(224,173,82,.22);
+    font-weight:800;
+    font-size:12px;
+  }
+
+  .resultgrid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:7px;
+    margin:12px 0;
+  }
+
+  .resultcell{
+    background:rgba(255,255,255,.55);
+    border-radius:14px;
+    padding:10px;
+    text-align:center;
+  }
+
+  .resultcell small{
+    display:block;
+    font-size:8px;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--ink2);
+  }
+
+  .resultcell b{
+    display:block;
+    font-size:18px;
+    margin-top:2px;
+  }
+
+  .sheet .widebtn{
+    width:100%;
+    margin-top:8px;
+  }
+
+  .tabs{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:5px;
+    background:rgba(24,50,45,.06);
+    padding:4px;
+    border-radius:14px;
+    margin:12px 0;
+  }
+
+  .tabs button{
+    border:0;
+    border-radius:11px;
+    padding:9px;
+    background:transparent;
+    color:var(--ink2);
+    font-weight:800;
+  }
+
+  .tabs button.active{
+    background:#fffdf4;
+    color:var(--ink);
+    box-shadow:0 2px 8px rgba(32,58,48,.08);
+  }
+
+  .leaderrow{
+    display:grid;
+    grid-template-columns:32px 1fr auto;
+    align-items:center;
+    gap:8px;
+    padding:9px 4px;
+    border-bottom:1px solid rgba(31,61,50,.09);
+  }
+
+  .leaderrow .rank{
+    font-weight:900;
+    color:var(--terra);
+  }
+
+  .leaderrow .meta{
+    font-size:10px;
+    color:var(--ink2);
+  }
+
+  .leaderrow .score{
+    font-weight:900;
+    font-variant-numeric:tabular-nums;
+  }
+
+  .empty{
+    text-align:center;
+    padding:24px 6px;
+    color:var(--ink2);
+    font-size:12px;
+  }
+
+  .careergrid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px;
+  }
+
+  .careerbox{
+    background:rgba(255,255,255,.48);
+    border-radius:14px;
+    padding:12px;
+  }
+
+  .careerbox small{
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--ink2);
+  }
+
+  .careerbox b{
+    display:block;
+    font-size:22px;
+    margin-top:2px;
+  }
+
+  .footnote{
+    text-align:center;
+    font-size:9px;
+    color:var(--ink2);
+    opacity:.7;
+    padding:8px 0 2px;
+  }
+
+  @media (min-width:560px){
+    body{padding-top:24px}
+    .boardwrap{padding:10px}
+    .controls .btn{padding:14px}
+  }
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="topbar">
+    <div class="brand">
+      <div class="sunmark"></div>
+      <div>
+        <h1>HIKARI <span style="font-weight:500">光</span></h1>
+        <div class="sub">solar transit puzzle</div>
+      </div>
+    </div>
+
+    <button class="iconbtn" id="statsBtn" aria-label="Stats">⌁</button>
+  </div>
+
+  <div class="panel difficulty" id="difficultyBar">
+    <button data-diff="Garden">
+      Garden
+      <small>庭</small>
+    </button>
+
+    <button data-diff="Grove">
+      Grove
+      <small>木立</small>
+    </button>
+
+    <button data-diff="Skyline">
+      Skyline
+      <small>空</small>
+    </button>
+
+    <button data-diff="Zenith">
+      Zenith
+      <small>頂</small>
+    </button>
+  </div>
+
+  <div class="hud">
+
+    <div class="panel stat">
+      <div class="label">Puzzle</div>
+      <div class="value" id="puzzleId">A01</div>
+      <div class="mini" id="difficultyText">Garden</div>
+    </div>
+
+    <div class="panel stat">
+      <div class="label">Par</div>
+      <div class="value" id="par">—</div>
+      <div class="mini">optimal</div>
+    </div>
+
+    <div class="panel stat">
+      <div class="label">Moves</div>
+      <div class="value" id="moves">0</div>
+      <div class="mini" id="overPar">on pace</div>
+    </div>
+
+    <div class="panel stat">
+      <div class="label">Time</div>
+      <div class="value" id="time">0:00</div>
+      <div class="mini" id="bestTime">no PB</div>
+    </div>
+
+  </div>
+
+  <div class="boardwrap">
+    <div class="board" id="board">
+      <div class="waterline"></div>
+      <div class="exitlabel">EXIT · 出口</div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn primary" id="newBtn">New Puzzle</button>
+    <button class="btn secondary" id="resetBtn">Reset</button>
+    <button class="btn hint" id="hintBtn">Hint</button>
+  </div>
+
+  <div class="panel lower">
+    <div class="left" id="statusLine">
+      <strong>Slide the Hikari shuttle</strong> to the east gate.
+    </div>
+
+    <div class="rankchip" id="rankChip">0 solved</div>
+  </div>
+
+  <div class="footnote">
+    All progress lives only on this device.
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal" id="modal">
+  <div class="sheet">
+
+    <div class="sheethead">
+      <h2 id="modalTitle">Run complete</h2>
+      <button class="close" id="closeModal">×</button>
+    </div>
+
+    <div id="modalBody"></div>
+
+  </div>
+</div>
+
+<script>
+
+const RAW_PUZZLES=`A01|4|H222,H253,H212,V203,V254,H220,V224,H303,V241,V251
+A02|3|H223,H254,V211,H331,V240,H200,H212,V352,H243,H251,V204
+A03|4|H221,H230,V223,H301,V241,V231,V253,H233,H211
+A04|3|H222,V252,H214,V233,H340,V220,H252,H244,H203
+A05|3|H221,H231,V341,V250,H242,V300,H251,V210,H202,V252
+A06|3|H222,V241,V203,H204,H201,H332,V201,H212,H250,V234
+A07|3|H221,V231,V202,H211,H243,V240,H232,H240,V252
+A08|4|H221,H212,H200,H230,V223,V353,V251,H302,H352,V241,H250,H210,V232
+B01|7|H222,V202,H204,H210,V251,V241,V230,H331,V244
+B02|5|H220,H252,V331,H202,H240,H310,H200,V253,V341,V251,V223
+B03|6|H221,H243,V230,V254,H352,H241,V203,H310,V251,V241,H333,H204
+B04|5|H221,H254,H203,V242,V204,V213,H311,V200,V223,V202,H243,V232
+B05|5|H220,H242,H201,V321,H352,H204,H210,V251,V243
+B06|7|H221,V233,V213,V340,V203,V250,H253,H212,H201,V252,H250,H244
+B07|5|H221,V340,V251,V201,H254,V234,H200,H211,H231
+B08|6|H220,H200,H310,V351,V243,V230,V241,H351,H241,V203,H232,H204
+C01|9|H220,V234,H311,V322,V253,V242,V313,V204,V251,V232,H301,H254,V200
+C02|9|H221,H250,H302,H244,V223,H230,H200,V242,V201
+C03|10|H223,H241,V202,V212,V351,H211,V200,V243,V333,H204,H254,H213
+C04|8|H222,H212,V311,V242,H240,H201,V202,H214,V244,V254,H203
+C05|8|H222,V243,V352,V212,H200,V234,H241,H250,H213,V201,H254,H232,H211
+C06|8|H220,V320,H252,V241,H230,H203,H232,V254,V243,H210,V231
+C07|8|H220,H233,H204,H202,V251,V244,V353,H351,V210,H240,V221,V241
+C08|9|H220,V200,H243,V232,H251,H203,H241,V221,V203,H254,V242,V210,H214
+D01|16|H222,V240,V351,H211,V212,H244,V234,H232,H251,V203,H201,V201,H241
+D02|11|H221,H202,V224,H230,V250,V353,V340,H233,H253,V214,H211,V201
+D03|11|H222,V233,V351,H244,H252,V240,V210,H212,V214,V204,H254
+D04|11|H220,H302,V204,V322,H311,V351,V200,V233,H254,V213,V241,H244
+D05|11|H220,V231,V242,V214,H343,H204,V203,V200,H352,H231,V251,H301,H211
+D06|12|H222,V211,V302,V340,V223,H254,V200,H251,H234,V251,V230
+D07|12|H220,V231,H341,V350,H352,V321,H234,V203,H250,H302
+D08|12|H220,V221,V252,V200,H250,H253,H202,V243,V241,V210,V224`;
+
+const PREFIX_DIFF={
+  A:"Garden",
+  B:"Grove",
+  C:"Skyline",
+  D:"Zenith"
+};
+
+const PUZZLES=RAW_PUZZLES
+  .trim()
+  .split("\n")
+  .map(line=>{
+
+    const [id,par,pieces]=line.split("|");
+
+    return {
+      id,
+      difficulty:PREFIX_DIFF[id[0]],
+      par:Number(par),
+
+      cars:pieces.split(",").map((s,i)=>({
+        id:i===0 ? "HIKARI" : "C"+i,
+        o:s[0],
+        len:Number(s[1]),
+        fixed:Number(s[2]),
+        pos:Number(s[3])
+      }))
+    };
+
+  });
+
+const DIFF_ORDER=[
+  "Garden",
+  "Grove",
+  "Skyline",
+  "Zenith"
+];
+
+const DIFF_LABELS={
+  Garden:{
+    jp:"庭",
+    base:2000
+  },
+
+  Grove:{
+    jp:"木立",
+    base:4000
+  },
+
+  Skyline:{
+    jp:"空",
+    base:7000
+  },
+
+  Zenith:{
+    jp:"頂",
+    base:10000
+  }
+};
+
+const STORAGE_KEY="hikari_solar_puzzle_v1";
+
+const board=document.getElementById("board");
+
+const els={
+  puzzleId:document.getElementById("puzzleId"),
+  par:document.getElementById("par"),
+  moves:document.getElementById("moves"),
+  time:document.getElementById("time"),
+  overPar:document.getElementById("overPar"),
+  bestTime:document.getElementById("bestTime"),
+  difficultyText:document.getElementById("difficultyText"),
+  statusLine:document.getElementById("statusLine"),
+  rankChip:document.getElementById("rankChip"),
+  toast:document.getElementById("toast"),
+  modal:document.getElementById("modal"),
+  modalTitle:document.getElementById("modalTitle"),
+  modalBody:document.getElementById("modalBody")
+};
+
+let save=loadSave();
+
+let difficulty=save.lastDifficulty || "Garden";
+
+let puzzle=null;
+let cars=[];
+let initialCars=[];
+
+let moveCount=0;
+let hints=0;
+
+let startTime=null;
+let elapsedBeforeStart=0;
+let timerId=null;
+
+let finished=false;
+let drag=null;
+
+let audioCtx=null;
+
+
+function loadSave(){
+
+  try{
+
+    const x=JSON.parse(
+      localStorage.getItem(STORAGE_KEY)
+    );
+
+    if(x && typeof x==="object"){
+
+      return {
+        results:[],
+        solved:{},
+        ...x
+      };
+
+    }
+
+  }catch(e){}
+
+  return {
+    results:[],
+    solved:{},
+    lastDifficulty:"Garden"
+  };
+}
+
+
+function persist(){
+
+  save.lastDifficulty=difficulty;
+
+  try{
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(save)
+    );
+
+  }catch(e){}
+
+}
+
+
+function clone(x){
+  return JSON.parse(JSON.stringify(x));
+}
+
+
+function fmtTime(sec){
+
+  sec=Math.max(
+    0,
+    Math.floor(sec)
+  );
+
+  return (
+    Math.floor(sec/60)
+    +":"
+    +String(sec%60).padStart(2,"0")
+  );
+}
+
+
+function getElapsed(){
+
+  if(startTime===null){
+    return elapsedBeforeStart;
+  }
+
+  return (
+    elapsedBeforeStart
+    +(performance.now()-startTime)/1000
+  );
+}
+
+
+function startClock(){
+
+  if(
+    startTime!==null
+    || finished
+  ){
+    return;
+  }
+
+  startTime=performance.now();
+
+  timerId=setInterval(
+    updateHUD,
+    250
+  );
+}
+
+
+function stopClock(){
+
+  if(startTime!==null){
+
+    elapsedBeforeStart+=
+      (performance.now()-startTime)/1000;
+
+    startTime=null;
+  }
+
+  if(timerId){
+
+    clearInterval(timerId);
+    timerId=null;
+
+  }
+}
+
+
+function resetClock(){
+
+  stopClock();
+
+  elapsedBeforeStart=0;
+  startTime=null;
+}
+
+
+function toast(msg,ms=1600){
+
+  els.toast.textContent=msg;
+
+  els.toast.classList.add("show");
+
+  clearTimeout(toast._t);
+
+  toast._t=setTimeout(
+    ()=>els.toast.classList.remove("show"),
+    ms
+  );
+}
+
+
+function tone(
+  freq=440,
+  dur=.05,
+  type="sine",
+  gain=.035,
+  delay=0
+){
+
+  try{
+
+    audioCtx=
+      audioCtx
+      || new (
+        window.AudioContext
+        || window.webkitAudioContext
+      )();
+
+    const o=
+      audioCtx.createOscillator();
+
+    const g=
+      audioCtx.createGain();
+
+    o.type=type;
+    o.frequency.value=freq;
+
+    g.gain.setValueAtTime(
+      0,
+      audioCtx.currentTime+delay
+    );
+
+    g.gain.linearRampToValueAtTime(
+      gain,
+      audioCtx.currentTime+delay+.01
+    );
+
+    g.gain.exponentialRampToValueAtTime(
+      .001,
+      audioCtx.currentTime+delay+dur
+    );
+
+    o.connect(g);
+    g.connect(audioCtx.destination);
+
+    o.start(
+      audioCtx.currentTime+delay
+    );
+
+    o.stop(
+      audioCtx.currentTime+delay+dur+.02
+    );
+
+  }catch(e){}
+}
+
+
+function clickTone(){
+
+  tone(
+    420,
+    .035,
+    "sine",
+    .018
+  );
+
+}
+
+
+function winTone(){
+
+  tone(
+    523,
+    .13,
+    "sine",
+    .035,
+    0
+  );
+
+  tone(
+    659,
+    .16,
+    "sine",
+    .032,
+    .11
+  );
+
+  tone(
+    784,
+    .22,
+    "sine",
+    .035,
+    .22
+  );
+
+}
+
+
+function choosePuzzle(){
+
+  const pool=
+    PUZZLES.filter(
+      p=>p.difficulty===difficulty
+    );
+
+  const currentId=puzzle?.id;
+
+  const unsolved=
+    pool.filter(
+      p=>
+        !save.solved[p.id]
+        && p.id!==currentId
+    );
+
+  const choices=
+    unsolved.length
+      ? unsolved
+      : pool.filter(
+          p=>p.id!==currentId
+        );
+
+  return (
+    choices[
+      Math.floor(
+        Math.random()*choices.length
+      )
+    ]
+    || pool[0]
+  );
+}
+
+
+function loadPuzzle(p){
+
+  stopClock();
+
+  puzzle=p;
+
+  cars=clone(p.cars);
+
+  initialCars=clone(p.cars);
+
+  moveCount=0;
+  hints=0;
+  finished=false;
+
+  resetClock();
+
+  render();
+  updateHUD();
+  updateDifficultyButtons();
+
+  els.statusLine.innerHTML=
+    "<strong>Slide the Hikari shuttle</strong> to the east gate.";
+}
+
+
+function newPuzzle(){
+
+  loadPuzzle(
+    choosePuzzle()
+  );
+
+}
+
+
+function resetPuzzle(){
+
+  cars=clone(initialCars);
+
+  moveCount=0;
+  hints=0;
+  finished=false;
+
+  resetClock();
+
+  render();
+  updateHUD();
+
+  toast("Garden reset.");
+
+  clickTone();
+}
+
+
+function cellSize(){
+
+  return board.clientWidth/6;
+
+}
+
+
+function occupancy(
+  stateCars=cars,
+  ignore=-1
+){
+
+  const g=
+    Array.from(
+      {length:6},
+      ()=>Array(6).fill(-1)
+    );
+
+  stateCars.forEach(
+    (c,i)=>{
+
+      if(i===ignore){
+        return;
+      }
+
+      for(
+        let k=0;
+        k<c.len;
+        k++
+      ){
+
+        const r=
+          c.o==="H"
+            ? c.fixed
+            : c.pos+k;
+
+        const col=
+          c.o==="H"
+            ? c.pos+k
+            : c.fixed;
+
+        if(
+          r>=0
+          && r<6
+          && col>=0
+          && col<6
+        ){
+          g[r][col]=i;
+        }
+
+      }
+
+    }
+  );
+
+  return g;
+}
+
+
+function movementBounds(index){
+
+  const c=cars[index];
+
+  const g=
+    occupancy(
+      cars,
+      index
+    );
+
+  let min=0;
+  let max=0;
+
+  if(c.o==="H"){
+
+    while(
+      c.pos+min-1>=0
+      && g[c.fixed][c.pos+min-1]===-1
+    ){
+      min--;
+    }
+
+    while(
+      c.pos+c.len+max<6
+      && g[c.fixed][c.pos+c.len+max]===-1
+    ){
+      max++;
+    }
+
+  }else{
+
+    while(
+      c.pos+min-1>=0
+      && g[c.pos+min-1][c.fixed]===-1
+    ){
+      min--;
+    }
+
+    while(
+      c.pos+c.len+max<6
+      && g[c.pos+c.len+max][c.fixed]===-1
+    ){
+      max++;
+    }
+
+  }
+
+  return {
+    min,
+    max
+  };
+}
+
+
+function carRect(c){
+
+  const s=cellSize();
+
+  const left=
+    (
+      c.o==="H"
+        ? c.pos
+        : c.fixed
+    )*s;
+
+  const top=
+    (
+      c.o==="H"
+        ? c.fixed
+        : c.pos
+    )*s;
+
+  const w=
+    (
+      c.o==="H"
+        ? c.len
+        : 1
+    )*s;
+
+  const h=
+    (
+      c.o==="H"
+        ? 1
+        : c.len
+    )*s;
+
+  return {
+    left,
+    top,
+    w,
+    h
+  };
+}
+
+
+function render(){
+
+  [
+    ...board.querySelectorAll(
+      ".car,.moveghost"
+    )
+  ].forEach(
+    n=>n.remove()
+  );
+
+  cars.forEach(
+    (c,i)=>{
+
+      const d=
+        document.createElement("div");
+
+      d.className=
+        "car "
+        +(
+          i===0
+            ? "target"
+            : "c"+((i-1)%5+1)
+        );
+
+      d.dataset.index=i;
+
+      const r=carRect(c);
+
+      d.style.left=
+        r.left+"px";
+
+      d.style.top=
+        r.top+"px";
+
+      d.style.width=
+        r.w+"px";
+
+      d.style.height=
+        r.h+"px";
+
+      const body=
+        document.createElement("div");
+
+      body.className="carbody";
+
+      if(i===0){
+
+        const g=
+          document.createElement("span");
+
+        g.className="glyph";
+        g.textContent="光";
+
+        body.appendChild(g);
+
+      }
+
+      d.appendChild(body);
+
+      d.addEventListener(
+        "pointerdown",
+        onPointerDown
+      );
+
+      board.appendChild(d);
+
+    }
+  );
+}
+
+
+function onPointerDown(e){
+
+  if(finished){
+    return;
+  }
+
+  const index=
+    Number(
+      e.currentTarget.dataset.index
+    );
+
+  const c=cars[index];
+
+  const bounds=
+    movementBounds(index);
+
+  const s=
+    cellSize();
+
+  drag={
+    index,
+    el:e.currentTarget,
+    startX:e.clientX,
+    startY:e.clientY,
+    startPos:c.pos,
+    bounds,
+    s,
+    preview:0,
+    pointerId:e.pointerId
+  };
+
+  e.currentTarget.setPointerCapture(
+    e.pointerId
+  );
+
+  e.currentTarget.classList.add(
+    "dragging"
+  );
+
+  e.preventDefault();
+}
+
+
+function onPointerMove(e){
+
+  if(
+    !drag
+    || e.pointerId!==drag.pointerId
+  ){
+    return;
+  }
+
+  const c=
+    cars[drag.index];
+
+  const raw=
+    (
+      c.o==="H"
+        ? e.clientX-drag.startX
+        : e.clientY-drag.startY
+    )
+    /drag.s;
+
+  const clamped=
+    Math.max(
+      drag.bounds.min,
+      Math.min(
+        drag.bounds.max,
+        raw
+      )
+    );
+
+  drag.preview=clamped;
+
+  const r=
+    carRect({
+      ...c,
+      pos:drag.startPos
+    });
+
+  if(c.o==="H"){
+
+    drag.el.style.left=
+      (
+        r.left
+        +clamped*drag.s
+      )
+      +"px";
+
+  }else{
+
+    drag.el.style.top=
+      (
+        r.top
+        +clamped*drag.s
+      )
+      +"px";
+
+  }
+}
+
+
+function onPointerUp(e){
+
+  if(
+    !drag
+    || e.pointerId!==drag.pointerId
+  ){
+    return;
+  }
+
+  const d=drag;
+
+  drag=null;
+
+  d.el.classList.remove(
+    "dragging"
+  );
+
+  const delta=
+    Math.max(
+      d.bounds.min,
+      Math.min(
+        d.bounds.max,
+        Math.round(
+          d.preview
+        )
+      )
+    );
+
+  cars[d.index].pos=
+    d.startPos+delta;
+
+  if(delta!==0){
+
+    startClock();
+
+    moveCount++;
+
+    clickTone();
+  }
+
+  render();
+  updateHUD();
+
+  if(delta!==0){
+    checkWin();
+  }
+}
+
+
+board.addEventListener(
+  "pointermove",
+  onPointerMove
+);
+
+board.addEventListener(
+  "pointerup",
+  onPointerUp
+);
+
+board.addEventListener(
+  "pointercancel",
+  onPointerUp
+);
+
+
+function checkWin(){
+
+  const t=cars[0];
+
+  if(
+    t.o==="H"
+    && t.fixed===2
+    && t.pos+t.len===6
+  ){
+
+    finishRun();
+
+  }
+}
+
+
+function calcScore(seconds){
+
+  const base=
+    DIFF_LABELS[difficulty].base;
+
+  const over=
+    Math.max(
+      0,
+      moveCount-puzzle.par
+    );
+
+  return Math.max(
+    100,
+    Math.round(
+      base
+      +puzzle.par*350
+      -over*450
+      -seconds*6
+      -hints*800
+    )
+  );
+}
+
+
+function gradeRun(over,h){
+
+  if(
+    h===0
+    && over===0
+  ){
+    return "Perfect path · 無駄なし";
+  }
+
+  if(
+    h===0
+    && over<=2
+  ){
+    return "Elegant route";
+  }
+
+  if(over<=4){
+    return "Clean transit";
+  }
+
+  return "Gate reached";
+}
+
+
+function finishRun(){
+
+  if(finished){
+    return;
+  }
+
+  finished=true;
+
+  stopClock();
+
+  const seconds=
+    getElapsed();
+
+  const over=
+    moveCount-puzzle.par;
+
+  const score=
+    calcScore(seconds);
+
+  const result={
+    ts:Date.now(),
+    puzzleId:puzzle.id,
+    difficulty,
+    par:puzzle.par,
+    moves:moveCount,
+    seconds:Number(
+      seconds.toFixed(2)
+    ),
+    over,
+    hints,
+    score
+  };
+
+  save.results.push(result);
+
+  if(
+    save.results.length>500
+  ){
+
+    save.results=
+      save.results.slice(-500);
+
+  }
+
+  save.solved[puzzle.id]=
+    (
+      save.solved[puzzle.id]
+      || 0
+    )
+    +1;
+
+  persist();
+  updateHUD();
+  winTone();
+
+  setTimeout(
+    ()=>showResult(result),
+    220
+  );
+}
+
+
+function showResult(r){
+
+  const same=
+    save.results
+      .filter(
+        x=>x.difficulty===r.difficulty
+      )
+      .sort(sortResults);
+
+  const rank=
+    same.findIndex(
+      x=>
+        x.ts===r.ts
+        && x.puzzleId===r.puzzleId
+    )
+    +1;
+
+  els.modalTitle.textContent=
+    "Gate reached";
+
+  els.modalBody.innerHTML=`
+
+    <div class="resultHero">
+
+      <div style="
+        font-size:12px;
+        letter-spacing:.18em;
+        text-transform:uppercase;
+        color:var(--ink2)
+      ">
+        Hikari ${r.puzzleId}
+      </div>
+
+      <div class="bigscore">
+        ${r.score.toLocaleString()}
+      </div>
+
+      <div style="
+        font-size:10px;
+        color:var(--ink2)
+      ">
+        ZEN SCORE
+      </div>
+
+      <div class="grade">
+        ${gradeRun(r.over,r.hints)}
+      </div>
+
+    </div>
+
+    <div class="resultgrid">
+
+      <div class="resultcell">
+        <small>Moves</small>
+        <b>${r.moves}</b>
+      </div>
+
+      <div class="resultcell">
+        <small>vs Par</small>
+        <b>
+          ${
+            r.over===0
+              ? "EVEN"
+              : "+"+r.over
+          }
+        </b>
+      </div>
+
+      <div class="resultcell">
+        <small>Time</small>
+        <b>${fmtTime(r.seconds)}</b>
+      </div>
+
+    </div>
+
+    <div style="
+      text-align:center;
+      font-size:11px;
+      color:var(--ink2);
+      margin:4px 0 10px
+    ">
+
+      ${
+        r.hints
+          ? `${r.hints} hint${r.hints===1?"":"s"} used · `
+          : ""
+      }
+
+      #${rank} among your ${r.difficulty} runs
+
+    </div>
+
+    <button
+      class="btn primary widebtn"
+      id="nextFromResult"
+    >
+      Next ${r.difficulty} Puzzle
+    </button>
+
+    <button
+      class="btn secondary widebtn"
+      id="recordsFromResult"
+    >
+      View Records
+    </button>
+  `;
+
+  els.modal.classList.add(
+    "show"
+  );
+
+  document
+    .getElementById("nextFromResult")
+    .onclick=()=>{
+
+      closeModal();
+      newPuzzle();
+
+    };
+
+  document
+    .getElementById("recordsFromResult")
+    .onclick=()=>showStats("leader");
+}
+
+
+function sortResults(a,b){
+
+  return (
+    b.score-a.score
+    || a.over-b.over
+    || a.seconds-b.seconds
+  );
+}
+
+
+function updateHUD(){
+
+  if(!puzzle){
+    return;
+  }
+
+  const sec=
+    getElapsed();
+
+  els.puzzleId.textContent=
+    puzzle.id;
+
+  els.par.textContent=
+    puzzle.par;
+
+  els.moves.textContent=
+    moveCount;
+
+  els.time.textContent=
+    fmtTime(sec);
+
+  els.difficultyText.textContent=
+    difficulty;
+
+  const over=
+    moveCount-puzzle.par;
+
+  els.overPar.textContent=
+    moveCount===0
+      ? "on pace"
+      : over<=0
+        ? `${Math.abs(over)} under par`
+        : `+${over} over par`;
+
+  const pb=
+    save.results
+      .filter(
+        r=>r.puzzleId===puzzle.id
+      )
+      .sort(sortResults)[0];
+
+  els.bestTime.textContent=
+    pb
+      ? `PB ${fmtTime(pb.seconds)}`
+      : "no PB";
+
+  els.rankChip.textContent=
+    `${save.results.length} solved`;
+}
+
+
+function updateDifficultyButtons(){
+
+  document
+    .querySelectorAll(
+      "#difficultyBar button"
+    )
+    .forEach(
+      b=>
+        b.classList.toggle(
+          "active",
+          b.dataset.diff===difficulty
+        )
+    );
+}
+
+
+document
+  .getElementById("difficultyBar")
+  .addEventListener(
+    "click",
+    e=>{
+
+      const b=
+        e.target.closest(
+          "button[data-diff]"
+        );
+
+      if(!b){
+        return;
+      }
+
+      difficulty=
+        b.dataset.diff;
+
+      persist();
+      newPuzzle();
+      clickTone();
+
+    }
+  );
+
+
+document
+  .getElementById("newBtn")
+  .onclick=()=>{
+
+    newPuzzle();
+    clickTone();
+
+  };
+
+
+document
+  .getElementById("resetBtn")
+  .onclick=resetPuzzle;
+
+
+function serializeState(
+  stateCars=cars
+){
+
+  return stateCars
+    .map(c=>c.pos)
+    .join(",");
+
+}
+
+
+function isGoalState(stateCars){
+
+  const t=
+    stateCars[0];
+
+  return (
+    t.o==="H"
+    && t.fixed===2
+    && t.pos+t.len===6
+  );
+}
+
+
+function solveCurrent(){
+
+  const start=
+    clone(cars);
+
+  if(isGoalState(start)){
+    return [];
+  }
+
+  const q=[start];
+
+  const parents=
+    new Map();
+
+  const moveTo=
+    new Map();
+
+  const startKey=
+    serializeState(start);
+
+  parents.set(
+    startKey,
+    null
+  );
+
+  let head=0;
+  let goalKey=null;
+  let nodes=0;
+
+  while(
+    head<q.length
+    && nodes<120000
+  ){
+
+    const s=
+      q[head++];
+
+    const sk=
+      serializeState(s);
+
+    nodes++;
+
+    const grid=
+      occupancy(s);
+
+    const moves=[];
+
+    s.forEach(
+      (c,i)=>{
+
+        if(c.o==="H"){
+
+          for(
+            let d=1;
+            c.pos-d>=0
+            && grid[c.fixed][c.pos-d]===-1;
+            d++
+          ){
+
+            moves.push({
+              i,
+              delta:-d
+            });
+
+          }
+
+          for(
+            let d=1;
+            c.pos+c.len-1+d<6
+            && grid[c.fixed][c.pos+c.len-1+d]===-1;
+            d++
+          ){
+
+            moves.push({
+              i,
+              delta:d
+            });
+
+          }
+
+        }else{
+
+          for(
+            let d=1;
+            c.pos-d>=0
+            && grid[c.pos-d][c.fixed]===-1;
+            d++
+          ){
+
+            moves.push({
+              i,
+              delta:-d
+            });
+
+          }
+
+          for(
+            let d=1;
+            c.pos+c.len-1+d<6
+            && grid[c.pos+c.len-1+d][c.fixed]===-1;
+            d++
+          ){
+
+            moves.push({
+              i,
+              delta:d
+            });
+
+          }
+
+        }
+
+      }
+    );
+
+    for(
+      const m of moves
+    ){
+
+      const ns=
+        clone(s);
+
+      ns[m.i].pos+=
+        m.delta;
+
+      const nk=
+        serializeState(ns);
+
+      if(
+        parents.has(nk)
+      ){
+        continue;
+      }
+
+      parents.set(
+        nk,
+        sk
+      );
+
+      moveTo.set(
+        nk,
+        m
+      );
+
+      if(
+        isGoalState(ns)
+      ){
+
+        goalKey=nk;
+        head=q.length;
+        break;
+
+      }
+
+      q.push(ns);
+
+    }
+
+    if(goalKey){
+      break;
+    }
+
+  }
+
+  if(!goalKey){
+    return null;
+  }
+
+  const path=[];
+
+  let k=goalKey;
+
+  while(
+    parents.get(k)!==null
+  ){
+
+    path.push(
+      moveTo.get(k)
+    );
+
+    k=
+      parents.get(k);
+
+  }
+
+  path.reverse();
+
+  return path;
+}
+
+
+function hintText(m){
+
+  const c=
+    cars[m.i];
+
+  const dir=
+    c.o==="H"
+      ? (
+          m.delta>0
+            ? "east"
+            : "west"
+        )
+      : (
+          m.delta>0
+            ? "south"
+            : "north"
+        );
+
+  const name=
+    m.i===0
+      ? "Hikari"
+      : "transit block";
+
+  return (
+    `Move the ${name} ${dir}`
+    +(
+      Math.abs(m.delta)>1
+        ? ` ${Math.abs(m.delta)} spaces`
+        : ""
+    )
+    +"."
+  );
+}
+
+
+document
+  .getElementById("hintBtn")
+  .onclick=()=>{
+
+    if(finished){
+      return;
+    }
+
+    toast(
+      "Finding the cleanest route…",
+      900
+    );
+
+    setTimeout(
+      ()=>{
+
+        const path=
+          solveCurrent();
+
+        if(
+          !path
+          || !path.length
+        ){
+
+          toast(
+            "No route found from here."
+          );
+
+          return;
+        }
+
+        const m=
+          path[0];
+
+        hints++;
+
+        updateHUD();
+
+        const el=
+          board.querySelector(
+            `.car[data-index="${m.i}"]`
+          );
+
+        if(el){
+
+          el.classList.add(
+            "hint"
+          );
+
+          setTimeout(
+            ()=>el.classList.remove("hint"),
+            2200
+          );
+
+        }
+
+        toast(
+          hintText(m),
+          2200
+        );
+
+        tone(
+          620,
+          .09,
+          "sine",
+          .025
+        );
+
+      },
+      40
+    );
+  };
+
+
+function closeModal(){
+
+  els.modal.classList.remove(
+    "show"
+  );
+
+}
+
+
+document
+  .getElementById("closeModal")
+  .onclick=closeModal;
+
+
+els.modal.addEventListener(
+  "click",
+  e=>{
+
+    if(
+      e.target===els.modal
+    ){
+      closeModal();
+    }
+
+  }
+);
+
+
+document
+  .getElementById("statsBtn")
+  .onclick=()=>showStats("leader");
+
+
+function showStats(
+  tab="leader"
+){
+
+  els.modalTitle.textContent=
+    "Your garden";
+
+  els.modalBody.innerHTML=`
+
+    <div class="tabs">
+
+      <button
+        data-tab="leader"
+        class="${tab==="leader"?"active":""}"
+      >
+        Top 10
+      </button>
+
+      <button
+        data-tab="career"
+        class="${tab==="career"?"active":""}"
+      >
+        Career
+      </button>
+
+    </div>
+
+    <div id="statsContent"></div>
+  `;
+
+  els.modal.classList.add(
+    "show"
+  );
+
+  const draw=which=>{
+
+    document
+      .querySelectorAll(
+        ".tabs button"
+      )
+      .forEach(
+        b=>
+          b.classList.toggle(
+            "active",
+            b.dataset.tab===which
+          )
+      );
+
+    if(which==="leader"){
+      drawLeaderboard();
+    }else{
+      drawCareer();
+    }
+
+  };
+
+  document
+    .querySelector(".tabs")
+    .onclick=e=>{
+
+      const b=
+        e.target.closest(
+          "button[data-tab]"
+        );
+
+      if(b){
+        draw(
+          b.dataset.tab
+        );
+      }
+
+    };
+
+  draw(tab);
+}
+
+
+function drawLeaderboard(){
+
+  const host=
+    document.getElementById(
+      "statsContent"
+    );
+
+  const top=
+    save.results
+      .filter(
+        r=>r.difficulty===difficulty
+      )
+      .sort(sortResults)
+      .slice(0,10);
+
+  if(!top.length){
+
+    host.innerHTML=
+      `<div class="empty">
+        No ${difficulty} runs yet.
+        The garden is waiting.
+      </div>`;
+
+    return;
+  }
+
+  host.innerHTML=
+
+    `<div style="
+      font-size:11px;
+      color:var(--ink2);
+      margin-bottom:6px
+    ">
+      <b>${difficulty}</b>
+      records · ranked by Zen Score
+    </div>`
+
+    +
+
+    top
+      .map(
+        (r,i)=>`
+
+          <div class="leaderrow">
+
+            <div class="rank">
+              #${i+1}
+            </div>
+
+            <div>
+
+              <b>${r.puzzleId}</b>
+
+              <div class="meta">
+
+                ${r.moves} moves ·
+
+                ${
+                  r.over===0
+                    ? "par"
+                    : "+"+r.over
+                }
+
+                · ${fmtTime(r.seconds)}
+
+                ${
+                  r.hints
+                    ? ` · ${r.hints} hint${r.hints===1?"":"s"}`
+                    : ""
+                }
+
+              </div>
+
+            </div>
+
+            <div class="score">
+              ${r.score.toLocaleString()}
+            </div>
+
+          </div>
+        `
+      )
+      .join("");
+}
+
+
+function avg(arr,fn){
+
+  return arr.length
+    ? arr.reduce(
+        (a,x)=>a+fn(x),
+        0
+      )/arr.length
+    : 0;
+}
+
+
+function drawCareer(){
+
+  const host=
+    document.getElementById(
+      "statsContent"
+    );
+
+  const r=
+    save.results;
+
+  if(!r.length){
+
+    host.innerHTML=
+      `<div class="empty">
+        Complete a puzzle to begin your local career stats.
+      </div>`;
+
+    return;
+  }
+
+  const perfect=
+    r.filter(
+      x=>
+        x.over===0
+        && x.hints===0
+    ).length;
+
+  const best=
+    [...r]
+      .sort(sortResults)[0];
+
+  const recent=
+    r.slice(-10);
+
+  host.innerHTML=`
+
+    <div class="careergrid">
+
+      <div class="careerbox">
+        <small>Puzzles solved</small>
+        <b>${r.length}</b>
+      </div>
+
+      <div class="careerbox">
+        <small>Perfect paths</small>
+        <b>${perfect}</b>
+      </div>
+
+      <div class="careerbox">
+        <small>Avg over par</small>
+        <b>
+          +${
+            avg(
+              r,
+              x=>Math.max(0,x.over)
+            ).toFixed(1)
+          }
+        </b>
+      </div>
+
+      <div class="careerbox">
+        <small>Avg solve time</small>
+        <b>
+          ${
+            fmtTime(
+              avg(
+                r,
+                x=>x.seconds
+              )
+            )
+          }
+        </b>
+      </div>
+
+      <div class="careerbox">
+        <small>Last 10 avg score</small>
+        <b>
+          ${
+            Math.round(
+              avg(
+                recent,
+                x=>x.score
+              )
+            ).toLocaleString()
+          }
+        </b>
+      </div>
+
+      <div class="careerbox">
+        <small>Best Zen Score</small>
+        <b>
+          ${best.score.toLocaleString()}
+        </b>
+      </div>
+
+    </div>
+
+    <div style="
+      margin-top:12px;
+      font-size:10px;
+      color:var(--ink2);
+      text-align:center
+    ">
+
+      ${Object.keys(save.solved).length}
+      unique layouts cleared ·
+      data stored only in localStorage
+
+    </div>
+  `;
+}
+
+
+window.addEventListener(
+  "resize",
+  ()=>render()
+);
+
+
+window.addEventListener(
+  "keydown",
+  e=>{
+
+    if(e.key==="Escape"){
+      closeModal();
+    }
+
+  }
+);
+
+
+updateDifficultyButtons();
+
+
+const firstPool=
+  PUZZLES.filter(
+    p=>p.difficulty===difficulty
+  );
+
+
+const preferred=
+  firstPool.find(
+    p=>!save.solved[p.id]
+  )
+  || firstPool[0];
+
+
+loadPuzzle(preferred);
+
+</script>
+
+</body>
+</html>
