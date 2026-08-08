@@ -17,7 +17,6 @@
       --pink: #ff3fa4;
       --gold: #ffca55;
       --red: #ff5d5d;
-      --green: #70ff9a;
       --line: rgba(255, 255, 255, 0.13);
       --shadow: 0 18px 55px rgba(0, 0, 0, 0.45);
       --radius: 20px;
@@ -46,6 +45,7 @@
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
+
       background:
         radial-gradient(
           circle at 50% -10%,
@@ -63,6 +63,7 @@
           #090711 45%,
           #07060c 100%
         );
+
       overflow-x: hidden;
     }
 
@@ -72,6 +73,7 @@
       inset: 0;
       pointer-events: none;
       opacity: 0.15;
+
       background-image:
         repeating-linear-gradient(
           0deg,
@@ -79,6 +81,7 @@
           transparent 3px,
           rgba(255, 255, 255, 0.05) 4px
         );
+
       mix-blend-mode: screen;
       z-index: 20;
     }
@@ -86,6 +89,7 @@
     .app {
       width: min(100%, 760px);
       margin: 0 auto;
+
       padding:
         max(14px, env(safe-area-inset-top))
         14px
@@ -95,9 +99,12 @@
     .hero {
       position: relative;
       overflow: hidden;
+
       padding: 20px 18px 18px;
+
       border: 1px solid rgba(255, 202, 85, 0.28);
       border-radius: 24px;
+
       background:
         linear-gradient(
           135deg,
@@ -110,18 +117,23 @@
           transparent 35%
         ),
         rgba(10, 7, 18, 0.87);
+
       box-shadow: var(--shadow);
     }
 
     .hero::after {
       content: "";
       position: absolute;
+
       right: -55px;
       bottom: -80px;
+
       width: 190px;
       height: 190px;
+
       border: 2px solid rgba(255, 202, 85, 0.12);
       border-radius: 50%;
+
       box-shadow:
         0 0 0 18px rgba(255, 63, 164, 0.04),
         0 0 0 38px rgba(66, 245, 233, 0.03);
@@ -129,21 +141,32 @@
 
     .eyebrow {
       margin: 0 0 5px;
+
       color: var(--cyan);
+
       font-size: 0.73rem;
       font-weight: 900;
       letter-spacing: 0.24em;
       text-transform: uppercase;
-      text-shadow: 0 0 10px rgba(66, 245, 233, 0.55);
+
+      text-shadow:
+        0 0 10px rgba(66, 245, 233, 0.55);
     }
 
     h1 {
       margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
       font-size: clamp(2.35rem, 10vw, 4.2rem);
       line-height: 0.9;
+
       letter-spacing: -0.045em;
       text-transform: uppercase;
+
       text-shadow:
         2px 2px 0 #7f1e55,
         0 0 18px rgba(255, 63, 164, 0.38);
@@ -152,7 +175,9 @@
     .subtitle {
       max-width: 34rem;
       margin: 10px 0 0;
+
       color: var(--muted);
+
       font-size: 0.95rem;
       line-height: 1.45;
     }
@@ -160,22 +185,30 @@
     .topbar {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+
       gap: 9px;
       margin-top: 14px;
     }
 
     .stat {
       min-width: 0;
+
       padding: 11px 9px;
+
       border: 1px solid var(--line);
       border-radius: 14px;
-      background: rgba(255, 255, 255, 0.035);
+
+      background:
+        rgba(255, 255, 255, 0.035);
+
       text-align: center;
     }
 
     .stat-label {
       display: block;
+
       color: var(--muted);
+
       font-size: 0.64rem;
       font-weight: 800;
       letter-spacing: 0.14em;
@@ -184,18 +217,30 @@
 
     .stat-value {
       display: block;
+
       margin-top: 2px;
+
       color: var(--gold);
-      font-family: Georgia, "Times New Roman", serif;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
       font-size: 1.35rem;
       font-weight: 900;
     }
 
     .game-panel {
       margin-top: 14px;
+
       padding: 16px;
-      border: 1px solid rgba(66, 245, 233, 0.18);
+
+      border:
+        1px solid rgba(66, 245, 233, 0.18);
+
       border-radius: var(--radius);
+
       background:
         linear-gradient(
           180deg,
@@ -203,37 +248,56 @@
           transparent 30%
         ),
         var(--panel);
+
       box-shadow: var(--shadow);
     }
 
     .status {
       display: flex;
+
       min-height: 48px;
+
       align-items: center;
       justify-content: space-between;
+
       gap: 12px;
+
       margin-bottom: 14px;
     }
 
     .status-main {
-      font-family: Georgia, "Times New Roman", serif;
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
       font-size: 1.04rem;
       font-weight: 800;
     }
 
     .status-sub {
       margin-top: 3px;
+
       color: var(--muted);
+
       font-size: 0.78rem;
     }
 
     .turn-badge {
       flex: 0 0 auto;
+
       padding: 7px 10px;
-      border: 1px solid rgba(255, 63, 164, 0.3);
+
+      border:
+        1px solid rgba(255, 63, 164, 0.3);
+
       border-radius: 999px;
+
       color: var(--pink);
-      background: rgba(255, 63, 164, 0.08);
+
+      background:
+        rgba(255, 63, 164, 0.08);
+
       font-size: 0.73rem;
       font-weight: 900;
       letter-spacing: 0.08em;
@@ -242,24 +306,36 @@
 
     .dice-row {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+
+      grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
       gap: 8px;
+
       perspective: 800px;
     }
 
     .die-wrap {
       display: grid;
+
       gap: 7px;
+
       justify-items: center;
     }
 
     .die {
       position: relative;
+
       width: 100%;
       aspect-ratio: 1;
+
       min-width: 0;
-      border: 2px solid rgba(255, 202, 85, 0.9);
+
+      border:
+        2px solid rgba(255, 202, 85, 0.9);
+
       border-radius: 17px;
+
       background:
         radial-gradient(
           circle at 30% 20%,
@@ -267,17 +343,24 @@
           #efe4cf 52%,
           #c9af8b 100%
         );
+
       box-shadow:
         inset 0 0 12px rgba(98, 51, 25, 0.2),
         0 8px 18px rgba(0, 0, 0, 0.38),
         0 0 12px rgba(255, 202, 85, 0.12);
+
       cursor: pointer;
-      transform: translateY(0) rotate(0deg);
+
+      transform:
+        translateY(0)
+        rotate(0deg);
+
       transition:
         transform 120ms ease,
         filter 120ms ease,
         border-color 120ms ease,
         box-shadow 120ms ease;
+
       touch-action: manipulation;
     }
 
@@ -287,8 +370,12 @@
 
     .die.held {
       border-color: var(--cyan);
+
       filter: saturate(1.1);
-      transform: translateY(-5px);
+
+      transform:
+        translateY(-5px);
+
       box-shadow:
         inset 0 0 12px rgba(0, 0, 0, 0.22),
         0 10px 18px rgba(0, 0, 0, 0.44),
@@ -297,36 +384,52 @@
     }
 
     .die.rolling {
-      animation: tumble 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
+      animation:
+        tumble
+        420ms
+        cubic-bezier(0.2, 0.7, 0.2, 1);
     }
 
     @keyframes tumble {
       0% {
-        transform: rotate(0deg) scale(1);
+        transform:
+          rotate(0deg)
+          scale(1);
       }
 
       35% {
-        transform: rotate(10deg) scale(0.86);
+        transform:
+          rotate(10deg)
+          scale(0.86);
       }
 
       70% {
-        transform: rotate(-7deg) scale(1.06);
+        transform:
+          rotate(-7deg)
+          scale(1.06);
       }
 
       100% {
-        transform: rotate(0deg) scale(1);
+        transform:
+          rotate(0deg)
+          scale(1);
       }
     }
 
     .hold-label {
       min-height: 16px;
+
       color: var(--cyan);
+
       font-size: 0.62rem;
       font-weight: 900;
       letter-spacing: 0.12em;
       text-transform: uppercase;
+
       opacity: 0;
-      transition: opacity 120ms ease;
+
+      transition:
+        opacity 120ms ease;
     }
 
     .die-wrap.held .hold-label {
@@ -335,12 +438,20 @@
 
     .pip {
       position: absolute;
+
       width: 17%;
       aspect-ratio: 1;
+
       border-radius: 50%;
+
       background: #261425;
-      box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.12);
-      transform: translate(-50%, -50%);
+
+      box-shadow:
+        inset 0 2px 2px
+        rgba(255, 255, 255, 0.12);
+
+      transform:
+        translate(-50%, -50%);
     }
 
     .pip.tl {
@@ -390,8 +501,12 @@
 
     .controls {
       display: grid;
-      grid-template-columns: 1fr auto;
+
+      grid-template-columns:
+        1fr auto;
+
       gap: 9px;
+
       margin-top: 16px;
     }
 
@@ -403,15 +518,21 @@
     .utility-button,
     .score-button {
       border: 0;
+
       cursor: pointer;
+
       touch-action: manipulation;
     }
 
     .roll-button {
       min-height: 54px;
+
       padding: 12px 18px;
+
       border-radius: 15px;
+
       color: #120a13;
+
       background:
         linear-gradient(
           180deg,
@@ -419,15 +540,23 @@
           var(--gold) 50%,
           #e79928 100%
         );
-      font-family: Georgia, "Times New Roman", serif;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
       font-size: 1.1rem;
       font-weight: 900;
+
       letter-spacing: 0.05em;
       text-transform: uppercase;
+
       box-shadow:
         0 7px 0 #8b491e,
         0 12px 24px rgba(0, 0, 0, 0.35),
         0 0 18px rgba(255, 202, 85, 0.18);
+
       transition:
         transform 100ms ease,
         box-shadow 100ms ease,
@@ -435,7 +564,9 @@
     }
 
     .roll-button:active:not(:disabled) {
-      transform: translateY(5px);
+      transform:
+        translateY(5px);
+
       box-shadow:
         0 2px 0 #8b491e,
         0 7px 14px rgba(0, 0, 0, 0.3);
@@ -443,35 +574,59 @@
 
     .roll-button:disabled {
       cursor: default;
-      filter: grayscale(0.65) brightness(0.65);
-      box-shadow: 0 4px 0 #553b2d;
+
+      filter:
+        grayscale(0.65)
+        brightness(0.65);
+
+      box-shadow:
+        0 4px 0 #553b2d;
     }
 
     .utility-button {
       min-width: 54px;
-      border: 1px solid var(--line);
+
+      border:
+        1px solid var(--line);
+
       border-radius: 15px;
+
       color: var(--ink);
-      background: rgba(255, 255, 255, 0.06);
+
+      background:
+        rgba(255, 255, 255, 0.06);
+
       font-size: 1.15rem;
     }
 
     .scorecard {
       margin-top: 14px;
+
       overflow: hidden;
-      border: 1px solid rgba(255, 63, 164, 0.18);
+
+      border:
+        1px solid rgba(255, 63, 164, 0.18);
+
       border-radius: var(--radius);
+
       background: var(--panel);
+
       box-shadow: var(--shadow);
     }
 
     .scorecard-header {
       display: flex;
+
       align-items: center;
       justify-content: space-between;
+
       gap: 12px;
+
       padding: 15px 16px;
-      border-bottom: 1px solid var(--line);
+
+      border-bottom:
+        1px solid var(--line);
+
       background:
         linear-gradient(
           90deg,
@@ -482,25 +637,39 @@
 
     .scorecard-header h2 {
       margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
       font-size: 1.25rem;
+
       text-transform: uppercase;
     }
 
     .scorecard-header span {
       color: var(--muted);
+
       font-size: 0.72rem;
+
       text-align: right;
     }
 
     .section-title {
-      padding: 10px 16px 7px;
+      padding:
+        10px 16px 7px;
+
       color: var(--cyan);
+
       font-size: 0.69rem;
       font-weight: 900;
       letter-spacing: 0.18em;
+
       text-transform: uppercase;
-      background: rgba(66, 245, 233, 0.025);
+
+      background:
+        rgba(66, 245, 233, 0.025);
     }
 
     .score-list {
@@ -509,42 +678,65 @@
 
     .score-row {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 88px;
+
+      grid-template-columns:
+        minmax(0, 1fr)
+        88px;
+
       min-height: 52px;
+
       align-items: stretch;
-      border-top: 1px solid var(--line);
+
+      border-top:
+        1px solid var(--line);
     }
 
     .score-copy {
       display: flex;
+
       min-width: 0;
+
       align-items: center;
       justify-content: space-between;
+
       gap: 9px;
-      padding: 9px 12px 9px 16px;
+
+      padding:
+        9px 12px 9px 16px;
     }
 
     .score-name {
       min-width: 0;
+
       font-size: 0.9rem;
       font-weight: 850;
     }
 
     .score-rule {
       display: block;
+
       margin-top: 2px;
+
       color: var(--muted);
+
       font-size: 0.67rem;
       font-weight: 500;
     }
 
     .score-button {
       min-width: 88px;
-      border-left: 1px solid var(--line);
+
+      border-left:
+        1px solid var(--line);
+
       color: var(--gold);
-      background: rgba(255, 202, 85, 0.045);
+
+      background:
+        rgba(255, 202, 85, 0.045);
+
       font-size: 1rem;
       font-weight: 950;
+
       transition:
         background 120ms ease,
         color 120ms ease;
@@ -552,23 +744,32 @@
 
     .score-button.available {
       color: #120a13;
+
       background:
         linear-gradient(
           135deg,
           var(--gold),
           #ff9e43
         );
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+
+      text-shadow:
+        0 1px 0
+        rgba(255, 255, 255, 0.25);
     }
 
     .score-button.available.zero {
       color: var(--ink);
-      background: rgba(255, 93, 93, 0.2);
+
+      background:
+        rgba(255, 93, 93, 0.2);
     }
 
     .score-button.used {
       color: var(--muted);
-      background: rgba(255, 255, 255, 0.025);
+
+      background:
+        rgba(255, 255, 255, 0.025);
+
       cursor: default;
     }
 
@@ -578,52 +779,276 @@
 
     .subtotal-row {
       display: grid;
-      grid-template-columns: 1fr auto;
+
+      grid-template-columns:
+        1fr auto;
+
       gap: 10px;
+
       align-items: center;
+
       padding: 11px 16px;
-      border-top: 1px solid var(--line);
+
+      border-top:
+        1px solid var(--line);
+
       color: var(--muted);
-      background: rgba(255, 255, 255, 0.025);
+
+      background:
+        rgba(255, 255, 255, 0.025);
+
       font-size: 0.78rem;
     }
 
     .subtotal-row strong {
       color: var(--ink);
+
       font-size: 0.95rem;
     }
 
     .grand-total {
       display: grid;
-      grid-template-columns: 1fr auto;
+
+      grid-template-columns:
+        1fr auto;
+
       gap: 10px;
+
       align-items: center;
+
       padding: 16px;
-      border-top: 1px solid rgba(255, 202, 85, 0.2);
+
+      border-top:
+        1px solid rgba(255, 202, 85, 0.2);
+
       background:
         linear-gradient(
           90deg,
           rgba(255, 202, 85, 0.09),
           rgba(255, 63, 164, 0.05)
         );
-      font-family: Georgia, "Times New Roman", serif;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
       font-size: 1.15rem;
       font-weight: 900;
+
       text-transform: uppercase;
     }
 
     .grand-total strong {
       color: var(--gold);
+
       font-size: 1.55rem;
+    }
+
+    .career-panel {
+      margin-top: 14px;
+
+      overflow: hidden;
+
+      border:
+        1px solid rgba(66, 245, 233, 0.18);
+
+      border-radius: var(--radius);
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(66, 245, 233, 0.05),
+          transparent 45%
+        ),
+        var(--panel);
+
+      box-shadow: var(--shadow);
+    }
+
+    .career-header {
+      display: flex;
+
+      align-items: end;
+      justify-content: space-between;
+
+      gap: 12px;
+
+      padding: 15px 16px;
+
+      border-bottom:
+        1px solid var(--line);
+    }
+
+    .career-header h2 {
+      margin: 0;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 1.25rem;
+
+      text-transform: uppercase;
+    }
+
+    .career-header span {
+      color: var(--muted);
+
+      font-size: 0.72rem;
+
+      text-align: right;
+    }
+
+    .career-stats {
+      display: grid;
+
+      grid-template-columns:
+        repeat(3, 1fr);
+
+      gap: 1px;
+
+      background: var(--line);
+    }
+
+    .career-stat {
+      padding: 14px 9px;
+
+      background:
+        rgba(12, 9, 20, 0.96);
+
+      text-align: center;
+    }
+
+    .career-stat-label {
+      display: block;
+
+      color: var(--muted);
+
+      font-size: 0.62rem;
+      font-weight: 850;
+      letter-spacing: 0.1em;
+
+      text-transform: uppercase;
+    }
+
+    .career-stat-value {
+      display: block;
+
+      margin-top: 3px;
+
+      color: var(--gold);
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 1.35rem;
+      font-weight: 900;
+    }
+
+    .target-strip {
+      padding: 11px 16px;
+
+      border-top:
+        1px solid var(--line);
+
+      color: var(--muted);
+
+      background:
+        rgba(255, 63, 164, 0.035);
+
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+
+    .target-strip strong {
+      color: var(--pink);
+    }
+
+    .leaderboard {
+      display: grid;
+    }
+
+    .leader-row {
+      display: grid;
+
+      grid-template-columns:
+        42px 1fr auto;
+
+      gap: 10px;
+
+      align-items: center;
+
+      min-height: 42px;
+
+      padding: 8px 16px;
+
+      border-top:
+        1px solid var(--line);
+    }
+
+    .leader-rank {
+      color: var(--cyan);
+
+      font-size: 0.75rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+    }
+
+    .leader-name {
+      color: var(--muted);
+
+      font-size: 0.78rem;
+    }
+
+    .leader-score {
+      color: var(--ink);
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 1rem;
+      font-weight: 900;
+    }
+
+    .leader-row.cutoff {
+      background:
+        rgba(255, 202, 85, 0.055);
+    }
+
+    .leader-empty {
+      padding: 15px 16px;
+
+      color: var(--muted);
+
+      font-size: 0.8rem;
+
+      text-align: center;
+
+      border-top:
+        1px solid var(--line);
     }
 
     .rules {
       margin-top: 14px;
+
       padding: 14px 16px;
-      border: 1px solid var(--line);
+
+      border:
+        1px solid var(--line);
+
       border-radius: 16px;
+
       color: var(--muted);
-      background: rgba(255, 255, 255, 0.025);
+
+      background:
+        rgba(255, 255, 255, 0.025);
+
       font-size: 0.78rem;
       line-height: 1.45;
     }
@@ -635,12 +1060,19 @@
     .modal {
       position: fixed;
       inset: 0;
+
       z-index: 50;
+
       display: grid;
       place-items: center;
+
       padding: 22px;
-      background: rgba(2, 1, 5, 0.82);
-      backdrop-filter: blur(8px);
+
+      background:
+        rgba(2, 1, 5, 0.82);
+
+      backdrop-filter:
+        blur(8px);
     }
 
     .modal[hidden] {
@@ -648,10 +1080,16 @@
     }
 
     .modal-card {
-      width: min(100%, 430px);
+      width:
+        min(100%, 430px);
+
       padding: 24px;
-      border: 1px solid rgba(255, 202, 85, 0.35);
+
+      border:
+        1px solid rgba(255, 202, 85, 0.35);
+
       border-radius: 24px;
+
       background:
         radial-gradient(
           circle at 50% 0,
@@ -659,55 +1097,83 @@
           transparent 40%
         ),
         var(--panel-2);
-      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.65);
+
+      box-shadow:
+        0 28px 90px
+        rgba(0, 0, 0, 0.65);
+
       text-align: center;
     }
 
     .modal-kicker {
       color: var(--cyan);
+
       font-size: 0.72rem;
       font-weight: 900;
       letter-spacing: 0.2em;
+
       text-transform: uppercase;
     }
 
     .modal-card h2 {
       margin: 6px 0 0;
-      font-family: Georgia, "Times New Roman", serif;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
       font-size: 2.25rem;
+
       text-transform: uppercase;
     }
 
     .final-score {
-      margin: 18px 0 2px;
+      margin:
+        18px 0 2px;
+
       color: var(--gold);
-      font-family: Georgia, "Times New Roman", serif;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
       font-size: 4rem;
       font-weight: 900;
       line-height: 1;
-      text-shadow: 0 0 22px rgba(255, 202, 85, 0.3);
+
+      text-shadow:
+        0 0 22px
+        rgba(255, 202, 85, 0.3);
     }
 
     .modal-message {
       margin: 8px 0 20px;
+
       color: var(--muted);
     }
 
     .modal-actions {
       display: grid;
+
       gap: 9px;
     }
 
     .modal-actions button {
       min-height: 50px;
+
       border: 0;
       border-radius: 14px;
+
       cursor: pointer;
+
       font-weight: 900;
     }
 
     .primary {
       color: #170d15;
+
       background:
         linear-gradient(
           180deg,
@@ -718,27 +1184,55 @@
 
     .secondary {
       color: var(--ink);
-      background: rgba(255, 255, 255, 0.08);
+
+      background:
+        rgba(255, 255, 255, 0.08);
     }
 
     .toast {
       position: fixed;
+
       left: 50%;
-      bottom: max(20px, env(safe-area-inset-bottom));
+
+      bottom:
+        max(
+          20px,
+          env(safe-area-inset-bottom)
+        );
+
       z-index: 80;
-      max-width: calc(100% - 32px);
+
+      max-width:
+        calc(100% - 32px);
+
       padding: 11px 15px;
-      border: 1px solid rgba(66, 245, 233, 0.25);
+
+      border:
+        1px solid rgba(66, 245, 233, 0.25);
+
       border-radius: 999px;
+
       color: var(--ink);
-      background: rgba(10, 7, 18, 0.94);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+
+      background:
+        rgba(10, 7, 18, 0.94);
+
+      box-shadow:
+        0 12px 40px
+        rgba(0, 0, 0, 0.55);
+
       font-size: 0.8rem;
       font-weight: 800;
+
       text-align: center;
-      transform: translate(-50%, 18px);
+
+      transform:
+        translate(-50%, 18px);
+
       opacity: 0;
+
       pointer-events: none;
+
       transition:
         opacity 180ms ease,
         transform 180ms ease;
@@ -746,7 +1240,9 @@
 
     .toast.show {
       opacity: 1;
-      transform: translate(-50%, 0);
+
+      transform:
+        translate(-50%, 0);
     }
 
     @media (min-width: 680px) {
@@ -771,7 +1267,9 @@
       }
 
       .score-row {
-        grid-template-columns: minmax(0, 1fr) 110px;
+        grid-template-columns:
+          minmax(0, 1fr)
+          110px;
       }
 
       .score-button {
@@ -798,7 +1296,9 @@
       }
 
       .score-row {
-        grid-template-columns: minmax(0, 1fr) 76px;
+        grid-template-columns:
+          minmax(0, 1fr)
+          76px;
       }
 
       .score-button {
@@ -810,18 +1310,28 @@
       *,
       *::before,
       *::after {
-        scroll-behavior: auto !important;
-        animation-duration: 0.001ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.001ms !important;
+        scroll-behavior:
+          auto !important;
+
+        animation-duration:
+          0.001ms !important;
+
+        animation-iteration-count:
+          1 !important;
+
+        transition-duration:
+          0.001ms !important;
       }
     }
   </style>
 </head>
 
 <body>
+
   <main class="app">
+
     <section class="hero">
+
       <p class="eyebrow">
         A game of luck in the neon frontier
       </p>
@@ -832,44 +1342,94 @@
       </h1>
 
       <p class="subtitle">
-        Roll the chrome bones. Lock the dice you trust. Settle your
-        score before the third roll—or ride into the badlands
-        empty-handed.
+        Roll the chrome bones. Lock the dice you trust.
+        Settle your score before the third roll—or ride
+        into the badlands empty-handed.
       </p>
 
-      <div class="topbar" aria-label="Game statistics">
+      <div
+        class="topbar"
+        aria-label="Game statistics"
+      >
+
         <div class="stat">
-          <span class="stat-label">Score</span>
-          <span class="stat-value" id="scoreStat">0</span>
+          <span class="stat-label">
+            Score
+          </span>
+
+          <span
+            class="stat-value"
+            id="scoreStat"
+          >
+            0
+          </span>
         </div>
 
         <div class="stat">
-          <span class="stat-label">High</span>
-          <span class="stat-value" id="highStat">0</span>
+          <span class="stat-label">
+            High
+          </span>
+
+          <span
+            class="stat-value"
+            id="highStat"
+          >
+            0
+          </span>
         </div>
 
         <div class="stat">
-          <span class="stat-label">Turns</span>
-          <span class="stat-value" id="turnStat">0/13</span>
+          <span class="stat-label">
+            Turns
+          </span>
+
+          <span
+            class="stat-value"
+            id="turnStat"
+          >
+            0/13
+          </span>
         </div>
+
       </div>
+
     </section>
 
-    <section class="game-panel" aria-label="Dice area">
-      <div class="status" aria-live="polite">
+    <section
+      class="game-panel"
+      aria-label="Dice area"
+    >
+
+      <div
+        class="status"
+        aria-live="polite"
+      >
+
         <div>
-          <div class="status-main" id="statusMain">
+
+          <div
+            class="status-main"
+            id="statusMain"
+          >
             The table is waiting.
           </div>
 
-          <div class="status-sub" id="statusSub">
+          <div
+            class="status-sub"
+            id="statusSub"
+          >
             Tap “Roll the Bones” to begin.
           </div>
+
         </div>
 
-        <div class="turn-badge" id="rollBadge">
+        <div
+          class="turn-badge"
+          id="rollBadge"
+        >
           3 rolls
         </div>
+
       </div>
 
       <div
@@ -879,6 +1439,7 @@
       ></div>
 
       <div class="controls">
+
         <button
           class="roll-button"
           id="rollButton"
@@ -896,20 +1457,27 @@
         >
           ↻
         </button>
+
       </div>
+
     </section>
 
     <section
       class="scorecard"
       aria-label="Yahtzee scorecard"
     >
+
       <div class="scorecard-header">
-        <h2>Bounty Ledger</h2>
+
+        <h2>
+          Bounty Ledger
+        </h2>
 
         <span>
           Tap a glowing score<br />
           to claim the category
         </span>
+
       </div>
 
       <div class="section-title">
@@ -922,15 +1490,23 @@
       ></div>
 
       <div class="subtotal-row">
+
         <span>
           Upper subtotal / 63 needed for bonus
         </span>
 
         <strong>
-          <span id="upperSubtotal">0</span>
+          <span id="upperSubtotal">
+            0
+          </span>
+
           +
-          <span id="upperBonus">0</span>
+
+          <span id="upperBonus">
+            0
+          </span>
         </strong>
+
       </div>
 
       <div class="section-title">
@@ -943,17 +1519,113 @@
       ></div>
 
       <div class="grand-total">
-        <span>Total Bounty</span>
-        <strong id="grandTotal">0</strong>
+
+        <span>
+          Total Bounty
+        </span>
+
+        <strong id="grandTotal">
+          0
+        </strong>
+
       </div>
+
+    </section>
+
+    <section
+      class="career-panel"
+      aria-label="Lifetime statistics"
+    >
+
+      <div class="career-header">
+
+        <h2>
+          Legend Board
+        </h2>
+
+        <span>
+          Your lifetime record<br />
+          on this device
+        </span>
+
+      </div>
+
+      <div class="career-stats">
+
+        <div class="career-stat">
+
+          <span class="career-stat-label">
+            Games
+          </span>
+
+          <span
+            class="career-stat-value"
+            id="gamesPlayed"
+          >
+            0
+          </span>
+
+        </div>
+
+        <div class="career-stat">
+
+          <span class="career-stat-label">
+            Average
+          </span>
+
+          <span
+            class="career-stat-value"
+            id="lifetimeAverage"
+          >
+            —
+          </span>
+
+        </div>
+
+        <div class="career-stat">
+
+          <span class="career-stat-label">
+            Best
+          </span>
+
+          <span
+            class="career-stat-value"
+            id="careerBest"
+          >
+            —
+          </span>
+
+        </div>
+
+      </div>
+
+      <div
+        class="target-strip"
+        id="targetStrip"
+      >
+        Finish a game to start your legend.
+      </div>
+
+      <div
+        class="leaderboard"
+        id="leaderboard"
+      ></div>
+
     </section>
 
     <div class="rules">
-      <strong>How to play:</strong>
-      Roll up to three times each turn. After any roll, tap dice to
-      hold them. Then choose one unused score category. Fill all 13
-      categories to finish the game.
+
+      <strong>
+        How to play:
+      </strong>
+
+      Roll up to three times each turn.
+      After any roll, tap dice to hold them.
+      Then choose one unused score category.
+      Fill all 13 categories to finish the game.
+
     </div>
+
   </main>
 
   <div
@@ -961,12 +1633,16 @@
     id="gameOverModal"
     hidden
   >
+
     <div class="modal-card">
+
       <div class="modal-kicker">
         The dust has settled
       </div>
 
-      <h2>Final Bounty</h2>
+      <h2>
+        Final Bounty
+      </h2>
 
       <div
         class="final-score"
@@ -983,6 +1659,7 @@
       </p>
 
       <div class="modal-actions">
+
         <button
           class="primary"
           id="playAgainButton"
@@ -998,8 +1675,11 @@
         >
           View Scorecard
         </button>
+
       </div>
+
     </div>
+
   </div>
 
   <div
@@ -1009,20 +1689,58 @@
     aria-live="polite"
   ></div>
 
+
   <script>
+
     (() => {
+
       "use strict";
 
+
       const PIPS = {
+
         1: ["mc"],
-        2: ["tl", "br"],
-        3: ["tl", "mc", "br"],
-        4: ["tl", "tr", "bl", "br"],
-        5: ["tl", "tr", "mc", "bl", "br"],
-        6: ["tl", "tr", "ml", "mr", "bl", "br"]
+
+        2: [
+          "tl",
+          "br"
+        ],
+
+        3: [
+          "tl",
+          "mc",
+          "br"
+        ],
+
+        4: [
+          "tl",
+          "tr",
+          "bl",
+          "br"
+        ],
+
+        5: [
+          "tl",
+          "tr",
+          "mc",
+          "bl",
+          "br"
+        ],
+
+        6: [
+          "tl",
+          "tr",
+          "ml",
+          "mr",
+          "bl",
+          "br"
+        ]
+
       };
 
+
       const CATEGORIES = [
+
         {
           id: "ones",
           label: "Ones",
@@ -1030,6 +1748,7 @@
           section: "upper",
           face: 1
         },
+
         {
           id: "twos",
           label: "Twos",
@@ -1037,6 +1756,7 @@
           section: "upper",
           face: 2
         },
+
         {
           id: "threes",
           label: "Threes",
@@ -1044,6 +1764,7 @@
           section: "upper",
           face: 3
         },
+
         {
           id: "fours",
           label: "Fours",
@@ -1051,6 +1772,7 @@
           section: "upper",
           face: 4
         },
+
         {
           id: "fives",
           label: "Fives",
@@ -1058,6 +1780,7 @@
           section: "upper",
           face: 5
         },
+
         {
           id: "sixes",
           label: "Sixes",
@@ -1065,163 +1788,321 @@
           section: "upper",
           face: 6
         },
+
         {
           id: "threeKind",
           label: "Three of a Kind",
           rule: "3 alike — total all dice",
           section: "lower"
         },
+
         {
           id: "fourKind",
           label: "Four of a Kind",
           rule: "4 alike — total all dice",
           section: "lower"
         },
+
         {
           id: "fullHouse",
           label: "Full House",
           rule: "3 of one + 2 of another — 25",
           section: "lower"
         },
+
         {
           id: "smallStraight",
           label: "Small Straight",
           rule: "4 in a row — 30",
           section: "lower"
         },
+
         {
           id: "largeStraight",
           label: "Large Straight",
           rule: "5 in a row — 40",
           section: "lower"
         },
+
         {
           id: "yahtzee",
           label: "Yahtzee",
           rule: "5 alike — 50",
           section: "lower"
         },
+
         {
           id: "chance",
           label: "Last Chance",
           rule: "Total all dice",
           section: "lower"
         }
+
       ];
 
+
+      function loadHistory() {
+
+        try {
+
+          const saved =
+            JSON.parse(
+              localStorage.getItem(
+                "neonGulchYahtzeeHistory"
+              ) || "[]"
+            );
+
+          if (!Array.isArray(saved)) {
+            return [];
+          }
+
+          return saved
+            .map(Number)
+            .filter(Number.isFinite);
+
+        } catch {
+
+          return [];
+
+        }
+
+      }
+
+
       const state = {
-        dice: [1, 1, 1, 1, 1],
-        held: [false, false, false, false, false],
+
+        dice:
+          [1, 1, 1, 1, 1],
+
+        held:
+          [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+
         rollsLeft: 3,
+
         hasRolled: false,
+
         scores: {},
+
         turn: 0,
+
         gameOver: false,
-        highScore: Number(
-          localStorage.getItem(
-            "neonGulchYahtzeeHighScore"
-          ) || 0
-        )
+
+        history:
+          loadHistory(),
+
+        highScore:
+          Number(
+            localStorage.getItem(
+              "neonGulchYahtzeeHighScore"
+            ) || 0
+          )
+
       };
+
 
       const els = {
+
         diceRow:
-          document.getElementById("diceRow"),
+          document.getElementById(
+            "diceRow"
+          ),
 
         rollButton:
-          document.getElementById("rollButton"),
+          document.getElementById(
+            "rollButton"
+          ),
 
         newGameButton:
-          document.getElementById("newGameButton"),
+          document.getElementById(
+            "newGameButton"
+          ),
 
         statusMain:
-          document.getElementById("statusMain"),
+          document.getElementById(
+            "statusMain"
+          ),
 
         statusSub:
-          document.getElementById("statusSub"),
+          document.getElementById(
+            "statusSub"
+          ),
 
         rollBadge:
-          document.getElementById("rollBadge"),
+          document.getElementById(
+            "rollBadge"
+          ),
 
         upperScores:
-          document.getElementById("upperScores"),
+          document.getElementById(
+            "upperScores"
+          ),
 
         lowerScores:
-          document.getElementById("lowerScores"),
+          document.getElementById(
+            "lowerScores"
+          ),
 
         upperSubtotal:
-          document.getElementById("upperSubtotal"),
+          document.getElementById(
+            "upperSubtotal"
+          ),
 
         upperBonus:
-          document.getElementById("upperBonus"),
+          document.getElementById(
+            "upperBonus"
+          ),
 
         grandTotal:
-          document.getElementById("grandTotal"),
+          document.getElementById(
+            "grandTotal"
+          ),
 
         scoreStat:
-          document.getElementById("scoreStat"),
+          document.getElementById(
+            "scoreStat"
+          ),
 
         highStat:
-          document.getElementById("highStat"),
+          document.getElementById(
+            "highStat"
+          ),
 
         turnStat:
-          document.getElementById("turnStat"),
+          document.getElementById(
+            "turnStat"
+          ),
+
+        gamesPlayed:
+          document.getElementById(
+            "gamesPlayed"
+          ),
+
+        lifetimeAverage:
+          document.getElementById(
+            "lifetimeAverage"
+          ),
+
+        careerBest:
+          document.getElementById(
+            "careerBest"
+          ),
+
+        targetStrip:
+          document.getElementById(
+            "targetStrip"
+          ),
+
+        leaderboard:
+          document.getElementById(
+            "leaderboard"
+          ),
 
         gameOverModal:
-          document.getElementById("gameOverModal"),
+          document.getElementById(
+            "gameOverModal"
+          ),
 
         finalScore:
-          document.getElementById("finalScore"),
+          document.getElementById(
+            "finalScore"
+          ),
 
         finalMessage:
-          document.getElementById("finalMessage"),
+          document.getElementById(
+            "finalMessage"
+          ),
 
         playAgainButton:
-          document.getElementById("playAgainButton"),
+          document.getElementById(
+            "playAgainButton"
+          ),
 
         closeModalButton:
-          document.getElementById("closeModalButton"),
+          document.getElementById(
+            "closeModalButton"
+          ),
 
         toast:
-          document.getElementById("toast")
+          document.getElementById(
+            "toast"
+          )
+
       };
 
+
       function secureRoll() {
+
         if (
           window.crypto &&
           window.crypto.getRandomValues
         ) {
-          const data = new Uint32Array(1);
 
-          window.crypto.getRandomValues(data);
+          const data =
+            new Uint32Array(1);
 
-          return (data[0] % 6) + 1;
+          window.crypto
+            .getRandomValues(data);
+
+          return (
+            data[0] % 6
+          ) + 1;
+
         }
 
-        return Math.floor(Math.random() * 6) + 1;
+        return (
+          Math.floor(
+            Math.random() * 6
+          ) + 1
+        );
+
       }
+
 
       function countDice(dice) {
-        const counts = Array(7).fill(0);
 
-        dice.forEach((value) => {
-          counts[value]++;
-        });
+        const counts =
+          Array(7).fill(0);
+
+        dice.forEach(
+          value => {
+            counts[value]++;
+          }
+        );
 
         return counts;
+
       }
+
 
       function sumDice(dice) {
+
         return dice.reduce(
-          (sum, value) => sum + value,
+          (sum, value) =>
+            sum + value,
           0
         );
+
       }
 
-      function hasStraight(dice, length) {
-        const unique = [
-          ...new Set(dice)
-        ].sort((a, b) => a - b);
+
+      function hasStraight(
+        dice,
+        length
+      ) {
+
+        const unique =
+          [
+            ...new Set(dice)
+          ].sort(
+            (a, b) =>
+              a - b
+          );
 
         let run = 1;
 
@@ -1230,53 +2111,93 @@
           i < unique.length;
           i++
         ) {
+
           if (
             unique[i] ===
             unique[i - 1] + 1
           ) {
+
             run++;
 
-            if (run >= length) {
+            if (
+              run >= length
+            ) {
               return true;
             }
+
           } else {
+
             run = 1;
+
           }
+
         }
 
-        return length <= 1;
+        return (
+          length <= 1
+        );
+
       }
 
-      function calculateScore(category, dice) {
-        const counts = countDice(dice);
-        const total = sumDice(dice);
 
-        if (category.section === "upper") {
+      function calculateScore(
+        category,
+        dice
+      ) {
+
+        const counts =
+          countDice(dice);
+
+        const total =
+          sumDice(dice);
+
+
+        if (
+          category.section ===
+          "upper"
+        ) {
+
           return (
             counts[category.face] *
             category.face
           );
+
         }
 
-        switch (category.id) {
+
+        switch (
+          category.id
+        ) {
+
           case "threeKind":
+
             return counts.some(
-              (count) => count >= 3
+              count =>
+                count >= 3
             )
               ? total
               : 0;
+
 
           case "fourKind":
+
             return counts.some(
-              (count) => count >= 4
+              count =>
+                count >= 4
             )
               ? total
               : 0;
 
+
           case "fullHouse": {
-            const nonZero = counts
-              .filter(Boolean)
-              .sort((a, b) => a - b);
+
+            const nonZero =
+              counts
+                .filter(Boolean)
+                .sort(
+                  (a, b) =>
+                    a - b
+                );
 
             return (
               nonZero.length === 2 &&
@@ -1285,82 +2206,203 @@
             )
               ? 25
               : 0;
+
           }
 
+
           case "smallStraight":
-            return hasStraight(dice, 4)
+
+            return hasStraight(
+              dice,
+              4
+            )
               ? 30
               : 0;
 
+
           case "largeStraight":
-            return hasStraight(dice, 5)
+
+            return hasStraight(
+              dice,
+              5
+            )
               ? 40
               : 0;
 
+
           case "yahtzee":
+
             return counts.some(
-              (count) => count === 5
+              count =>
+                count === 5
             )
               ? 50
               : 0;
 
+
           case "chance":
+
             return total;
 
+
           default:
+
             return 0;
+
         }
+
       }
 
+
       function getUpperSubtotal() {
+
         return CATEGORIES
           .filter(
-            (category) =>
-              category.section === "upper"
+            category =>
+              category.section ===
+              "upper"
           )
           .reduce(
-            (sum, category) =>
+            (
+              sum,
+              category
+            ) =>
               sum +
               (
-                state.scores[category.id] ??
-                0
+                state.scores[
+                  category.id
+                ] ?? 0
               ),
             0
           );
+
       }
+
 
       function getUpperBonus() {
-        return getUpperSubtotal() >= 63
+
+        return (
+          getUpperSubtotal() >= 63
+        )
           ? 35
           : 0;
+
       }
 
+
       function getTotalScore() {
-        const scoredPoints =
+
+        const categoryPoints =
           Object.values(
             state.scores
           ).reduce(
-            (sum, score) => sum + score,
+            (
+              sum,
+              score
+            ) =>
+              sum + score,
             0
           );
 
         return (
-          scoredPoints +
+          categoryPoints +
           getUpperBonus()
         );
+
       }
 
-      function createDie(index) {
-        const wrap =
-          document.createElement("div");
 
-        wrap.className = "die-wrap";
+      function saveHistory() {
+
+        localStorage.setItem(
+          "neonGulchYahtzeeHistory",
+          JSON.stringify(
+            state.history
+          )
+        );
+
+      }
+
+
+      function getCareerStats() {
+
+        const games =
+          state.history.length;
+
+        if (
+          games === 0
+        ) {
+
+          return {
+            games: 0,
+            average: null,
+            best: null,
+            topTen: []
+          };
+
+        }
+
+        const total =
+          state.history.reduce(
+            (
+              sum,
+              score
+            ) =>
+              sum + score,
+            0
+          );
+
+        const topTen =
+          [
+            ...state.history
+          ]
+            .sort(
+              (a, b) =>
+                b - a
+            )
+            .slice(
+              0,
+              10
+            );
+
+        return {
+
+          games,
+
+          average:
+            total / games,
+
+          best:
+            topTen[0],
+
+          topTen
+
+        };
+
+      }
+
+
+      function createDie(index) {
+
+        const wrap =
+          document.createElement(
+            "div"
+          );
+
+        wrap.className =
+          "die-wrap";
+
 
         const button =
-          document.createElement("button");
+          document.createElement(
+            "button"
+          );
 
-        button.type = "button";
-        button.className = "die";
+        button.type =
+          "button";
+
+        button.className =
+          "die";
 
         button.setAttribute(
           "aria-label",
@@ -1369,16 +2411,22 @@
 
         button.addEventListener(
           "click",
-          () => toggleHold(index)
+          () =>
+            toggleHold(index)
         );
 
+
         const holdLabel =
-          document.createElement("div");
+          document.createElement(
+            "div"
+          );
 
         holdLabel.className =
           "hold-label";
 
-        holdLabel.textContent = "Held";
+        holdLabel.textContent =
+          "Held";
+
 
         wrap.append(
           button,
@@ -1386,111 +2434,179 @@
         );
 
         return wrap;
+
       }
+
 
       function renderDice(
         animate = false
       ) {
+
         if (
-          els.diceRow.children.length ===
-          0
+          els.diceRow
+            .children
+            .length === 0
         ) {
+
           state.dice.forEach(
-            (_, index) => {
-              els.diceRow.appendChild(
-                createDie(index)
-              );
+            (
+              _,
+              index
+            ) => {
+
+              els.diceRow
+                .appendChild(
+                  createDie(index)
+                );
+
             }
           );
+
         }
+
 
         [
           ...els.diceRow.children
-        ].forEach((wrap, index) => {
-          const die =
-            wrap.querySelector(".die");
+        ].forEach(
+          (
+            wrap,
+            index
+          ) => {
 
-          const value =
-            state.dice[index];
+            const die =
+              wrap.querySelector(
+                ".die"
+              );
 
-          die.innerHTML = "";
+            const value =
+              state.dice[
+                index
+              ];
 
-          PIPS[value].forEach(
-            (position) => {
-              const pip =
-                document.createElement(
-                  "span"
-                );
 
-              pip.className =
-                `pip ${position}`;
+            die.innerHTML =
+              "";
 
-              die.appendChild(pip);
+
+            PIPS[value]
+              .forEach(
+                position => {
+
+                  const pip =
+                    document.createElement(
+                      "span"
+                    );
+
+                  pip.className =
+                    `pip ${position}`;
+
+                  die.appendChild(
+                    pip
+                  );
+
+                }
+              );
+
+
+            die.classList.toggle(
+              "held",
+              state.held[
+                index
+              ]
+            );
+
+            wrap.classList.toggle(
+              "held",
+              state.held[
+                index
+              ]
+            );
+
+
+            die.disabled =
+              !state.hasRolled ||
+              state.gameOver;
+
+
+            die.setAttribute(
+              "aria-label",
+
+              `Die ${
+                index + 1
+              }: ${
+                value
+              }${
+                state.held[index]
+                  ? ", held"
+                  : ""
+              }`
+            );
+
+
+            die.setAttribute(
+              "aria-pressed",
+              String(
+                state.held[
+                  index
+                ]
+              )
+            );
+
+
+            if (
+              animate &&
+              !state.held[
+                index
+              ]
+            ) {
+
+              die.classList.remove(
+                "rolling"
+              );
+
+              void die.offsetWidth;
+
+              die.classList.add(
+                "rolling"
+              );
+
             }
-          );
 
-          die.classList.toggle(
-            "held",
-            state.held[index]
-          );
-
-          wrap.classList.toggle(
-            "held",
-            state.held[index]
-          );
-
-          die.disabled =
-            !state.hasRolled ||
-            state.gameOver;
-
-          die.setAttribute(
-            "aria-label",
-            `Die ${index + 1}: ${value}${
-              state.held[index]
-                ? ", held"
-                : ""
-            }`
-          );
-
-          die.setAttribute(
-            "aria-pressed",
-            String(state.held[index])
-          );
-
-          if (
-            animate &&
-            !state.held[index]
-          ) {
-            die.classList.remove(
-              "rolling"
-            );
-
-            void die.offsetWidth;
-
-            die.classList.add(
-              "rolling"
-            );
           }
-        });
+        );
+
       }
+
 
       function createScoreRow(
         category
       ) {
-        const row =
-          document.createElement("div");
 
-        row.className = "score-row";
+        const row =
+          document.createElement(
+            "div"
+          );
+
+        row.className =
+          "score-row";
+
 
         const copy =
-          document.createElement("div");
+          document.createElement(
+            "div"
+          );
 
-        copy.className = "score-copy";
+        copy.className =
+          "score-copy";
+
 
         const name =
-          document.createElement("div");
+          document.createElement(
+            "div"
+          );
 
-        name.className = "score-name";
+        name.className =
+          "score-name";
 
         name.innerHTML =
           `${category.label}` +
@@ -1498,14 +2614,20 @@
           `${category.rule}` +
           `</span>`;
 
-        copy.appendChild(name);
+
+        copy.appendChild(
+          name
+        );
+
 
         const button =
           document.createElement(
             "button"
           );
 
-        button.type = "button";
+        button.type =
+          "button";
+
         button.className =
           "score-button";
 
@@ -1515,17 +2637,28 @@
         button.addEventListener(
           "click",
           () =>
-            chooseScore(category.id)
+            chooseScore(
+              category.id
+            )
         );
 
-        row.append(copy, button);
+
+        row.append(
+          copy,
+          button
+        );
+
 
         return row;
+
       }
 
+
       function buildScorecard() {
+
         CATEGORIES.forEach(
-          (category) => {
+          category => {
+
             const target =
               category.section ===
               "upper"
@@ -1533,15 +2666,22 @@
                 : els.lowerScores;
 
             target.appendChild(
-              createScoreRow(category)
+              createScoreRow(
+                category
+              )
             );
+
           }
         );
+
       }
 
+
       function renderScorecard() {
+
         CATEGORIES.forEach(
-          (category) => {
+          category => {
+
             const button =
               document.querySelector(
                 `[data-category="${category.id}"]`
@@ -1555,10 +2695,15 @@
                   category.id
                 );
 
+
             button.className =
               "score-button";
 
-            if (used) {
+
+            if (
+              used
+            ) {
+
               button.textContent =
                 state.scores[
                   category.id
@@ -1568,20 +2713,24 @@
                 "used"
               );
 
-              button.disabled = true;
+              button.disabled =
+                true;
 
               button.setAttribute(
                 "aria-label",
+
                 `${category.label}: scored ${
                   state.scores[
                     category.id
                   ]
                 }`
               );
+
             } else if (
               state.hasRolled &&
               !state.gameOver
             ) {
+
               const preview =
                 calculateScore(
                   category,
@@ -1595,29 +2744,44 @@
                 "available"
               );
 
-              if (preview === 0) {
+              if (
+                preview === 0
+              ) {
+
                 button.classList.add(
                   "zero"
                 );
+
               }
 
-              button.disabled = false;
+              button.disabled =
+                false;
 
               button.setAttribute(
                 "aria-label",
+
                 `Score ${preview} points in ${category.label}`
               );
+
             } else {
-              button.textContent = "—";
-              button.disabled = true;
+
+              button.textContent =
+                "—";
+
+              button.disabled =
+                true;
 
               button.setAttribute(
                 "aria-label",
+
                 `${category.label}: unavailable until you roll`
               );
+
             }
+
           }
         );
+
 
         const upperSubtotal =
           getUpperSubtotal();
@@ -1628,166 +2792,495 @@
         const total =
           getTotalScore();
 
-        els.upperSubtotal.textContent =
-          upperSubtotal;
 
-        els.upperBonus.textContent =
-          upperBonus;
+        els.upperSubtotal
+          .textContent =
+            upperSubtotal;
 
-        els.grandTotal.textContent =
-          total;
+        els.upperBonus
+          .textContent =
+            upperBonus;
 
-        els.scoreStat.textContent =
-          total;
+        els.grandTotal
+          .textContent =
+            total;
 
-        els.highStat.textContent =
-          state.highScore;
+        els.scoreStat
+          .textContent =
+            total;
 
-        els.turnStat.textContent =
-          `${state.turn}/13`;
+        els.highStat
+          .textContent =
+            state.highScore;
+
+        els.turnStat
+          .textContent =
+            `${state.turn}/13`;
+
       }
+
+
+      function renderCareer() {
+
+        const stats =
+          getCareerStats();
+
+
+        els.gamesPlayed
+          .textContent =
+            stats.games;
+
+
+        els.lifetimeAverage
+          .textContent =
+            stats.average === null
+              ? "—"
+              : stats.average
+                  .toFixed(1);
+
+
+        els.careerBest
+          .textContent =
+            stats.best === null
+              ? "—"
+              : stats.best;
+
+
+        els.leaderboard
+          .innerHTML =
+            "";
+
+
+        if (
+          stats.topTen
+            .length === 0
+        ) {
+
+          const empty =
+            document.createElement(
+              "div"
+            );
+
+          empty.className =
+            "leader-empty";
+
+          empty.textContent =
+            "No completed runs yet. Your first finished game becomes the mark to beat.";
+
+          els.leaderboard
+            .appendChild(
+              empty
+            );
+
+          els.targetStrip
+            .innerHTML =
+              "Finish a game to start your legend.";
+
+          return;
+
+        }
+
+
+        stats.topTen
+          .forEach(
+            (
+              score,
+              index
+            ) => {
+
+              const row =
+                document.createElement(
+                  "div"
+                );
+
+              row.className =
+                "leader-row";
+
+
+              if (
+                stats.topTen.length === 10 &&
+                index === 9
+              ) {
+
+                row.classList.add(
+                  "cutoff"
+                );
+
+              }
+
+
+              const rank =
+                document.createElement(
+                  "div"
+                );
+
+              rank.className =
+                "leader-rank";
+
+              rank.textContent =
+                `#${index + 1}`;
+
+
+              const name =
+                document.createElement(
+                  "div"
+                );
+
+              name.className =
+                "leader-name";
+
+
+              if (
+                index === 0
+              ) {
+
+                name.textContent =
+                  "High-water mark";
+
+              } else if (
+                index === 9 &&
+                stats.topTen.length === 10
+              ) {
+
+                name.textContent =
+                  "Top-10 cutoff";
+
+              } else {
+
+                name.textContent =
+                  "Completed run";
+
+              }
+
+
+              const value =
+                document.createElement(
+                  "div"
+                );
+
+              value.className =
+                "leader-score";
+
+              value.textContent =
+                score;
+
+
+              row.append(
+                rank,
+                name,
+                value
+              );
+
+
+              els.leaderboard
+                .appendChild(
+                  row
+                );
+
+            }
+          );
+
+
+        if (
+          stats.topTen.length < 10
+        ) {
+
+          const spots =
+            10 -
+            stats.topTen.length;
+
+          els.targetStrip
+            .innerHTML =
+
+              `Lifetime average: ` +
+              `<strong>${
+                stats.average.toFixed(1)
+              }</strong>. ` +
+
+              `You still have ` +
+              `<strong>${spots}</strong> ` +
+
+              `open top-10 ` +
+
+              `${
+                spots === 1
+                  ? "spot"
+                  : "spots"
+              }—every finished game makes the board.`;
+
+        } else {
+
+          const cutoff =
+            stats.topTen[9];
+
+          els.targetStrip
+            .innerHTML =
+
+              `Next target: score ` +
+              `<strong>${
+                cutoff + 1
+              }</strong> ` +
+
+              `or better to break into your top 10. ` +
+
+              `Lifetime average: ` +
+
+              `<strong>${
+                stats.average.toFixed(1)
+              }</strong>.`;
+
+        }
+
+      }
+
 
       function renderStatus() {
-        els.rollBadge.textContent =
-          `${state.rollsLeft} roll${
-            state.rollsLeft === 1
-              ? ""
-              : "s"
-          }`;
 
-        if (state.gameOver) {
-          els.statusMain.textContent =
-            "The frontier has its verdict.";
+        els.rollBadge
+          .textContent =
 
-          els.statusSub.textContent =
-            "Your final bounty is posted below.";
+            `${state.rollsLeft} roll${
+              state.rollsLeft === 1
+                ? ""
+                : "s"
+            }`;
 
-          return;
-        }
 
-        if (!state.hasRolled) {
-          els.statusMain.textContent =
-            state.turn === 0
-              ? "The table is waiting."
-              : "New hand. Fresh trouble.";
+        if (
+          state.gameOver
+        ) {
 
-          els.statusSub.textContent =
-            "Tap “Roll the Bones” to begin.";
+          els.statusMain
+            .textContent =
+              "The frontier has its verdict.";
+
+          els.statusSub
+            .textContent =
+              "Your final bounty is posted below.";
 
           return;
+
         }
 
-        if (state.rollsLeft === 0) {
-          els.statusMain.textContent =
-            "No rolls left, gunslinger.";
 
-          els.statusSub.textContent =
-            "Choose a score from the bounty ledger.";
+        if (
+          !state.hasRolled
+        ) {
+
+          els.statusMain
+            .textContent =
+
+              state.turn === 0
+                ? "The table is waiting."
+                : "New hand. Fresh trouble.";
+
+
+          els.statusSub
+            .textContent =
+              "Tap “Roll the Bones” to begin.";
 
           return;
+
         }
+
+
+        if (
+          state.rollsLeft === 0
+        ) {
+
+          els.statusMain
+            .textContent =
+              "No rolls left, gunslinger.";
+
+          els.statusSub
+            .textContent =
+              "Choose a score from the bounty ledger.";
+
+          return;
+
+        }
+
 
         const heldCount =
-          state.held.filter(
-            Boolean
-          ).length;
+          state.held
+            .filter(Boolean)
+            .length;
 
-        els.statusMain.textContent =
-          heldCount
-            ? `${heldCount} ${
-                heldCount === 1
-                  ? "die"
-                  : "dice"
-              } locked in.`
-            : "The dice are still wild.";
 
-        els.statusSub.textContent =
-          "Hold what you like, then roll again or claim a score.";
+        els.statusMain
+          .textContent =
+
+            heldCount
+              ? `${heldCount} ${
+                  heldCount === 1
+                    ? "die"
+                    : "dice"
+                } locked in.`
+              : "The dice are still wild.";
+
+
+        els.statusSub
+          .textContent =
+            "Hold what you like, then roll again or claim a score.";
+
       }
 
-      function renderControls() {
-        els.rollButton.disabled =
-          state.gameOver ||
-          state.rollsLeft === 0;
 
-        if (!state.hasRolled) {
-          els.rollButton.textContent =
-            "Roll the Bones";
+      function renderControls() {
+
+        els.rollButton
+          .disabled =
+
+            state.gameOver ||
+            state.rollsLeft === 0;
+
+
+        if (
+          !state.hasRolled
+        ) {
+
+          els.rollButton
+            .textContent =
+              "Roll the Bones";
+
         } else if (
           state.rollsLeft > 0
         ) {
-          els.rollButton.textContent =
-            state.rollsLeft === 1
-              ? "Final Roll"
-              : "Roll Again";
+
+          els.rollButton
+            .textContent =
+
+              state.rollsLeft === 1
+                ? "Final Roll"
+                : "Roll Again";
+
         } else {
-          els.rollButton.textContent =
-            "Choose a Score";
+
+          els.rollButton
+            .textContent =
+              "Choose a Score";
+
         }
+
       }
+
 
       function renderAll(
         animateDice = false
       ) {
-        renderDice(animateDice);
+
+        renderDice(
+          animateDice
+        );
+
         renderScorecard();
+
+        renderCareer();
+
         renderStatus();
+
         renderControls();
+
       }
 
+
       function rollDice() {
+
         if (
           state.gameOver ||
           state.rollsLeft <= 0
         ) {
+
           return;
+
         }
+
 
         state.dice =
           state.dice.map(
-            (value, index) =>
-              state.held[index]
+            (
+              value,
+              index
+            ) =>
+
+              state.held[
+                index
+              ]
                 ? value
                 : secureRoll()
+
           );
 
+
         state.rollsLeft--;
-        state.hasRolled = true;
+
+        state.hasRolled =
+          true;
+
 
         renderAll(true);
 
-        if (navigator.vibrate) {
-          navigator.vibrate(18);
+
+        if (
+          navigator.vibrate
+        ) {
+
+          navigator.vibrate(
+            18
+          );
+
         }
+
       }
 
-      function toggleHold(index) {
+
+      function toggleHold(
+        index
+      ) {
+
         if (
           !state.hasRolled ||
           state.gameOver
         ) {
+
           return;
+
         }
+
 
         state.held[index] =
           !state.held[index];
 
+
         renderAll(false);
 
-        if (navigator.vibrate) {
-          navigator.vibrate(8);
+
+        if (
+          navigator.vibrate
+        ) {
+
+          navigator.vibrate(
+            8
+          );
+
         }
+
       }
+
 
       function chooseScore(
         categoryId
       ) {
+
         if (
           !state.hasRolled ||
           state.gameOver
         ) {
+
           return;
+
         }
+
 
         if (
           Object.prototype
@@ -1797,18 +3290,28 @@
               categoryId
             )
         ) {
+
           return;
+
         }
+
 
         const category =
           CATEGORIES.find(
-            (item) =>
-              item.id === categoryId
+            item =>
+              item.id ===
+              categoryId
           );
 
-        if (!category) {
+
+        if (
+          !category
+        ) {
+
           return;
+
         }
+
 
         const score =
           calculateScore(
@@ -1816,27 +3319,42 @@
             state.dice
           );
 
-        state.scores[categoryId] =
+
+        state.scores[
+          categoryId
+        ] =
           score;
+
 
         state.turn++;
 
+
         showToast(
+
           `${category.label}: ${score} point${
-            score === 1 ? "" : "s"
+            score === 1
+              ? ""
+              : "s"
           }`
+
         );
+
 
         if (
           state.turn >=
           CATEGORIES.length
         ) {
+
           finishGame();
+
           return;
+
         }
+
 
         state.dice =
           [1, 1, 1, 1, 1];
+
 
         state.held =
           [
@@ -1847,87 +3365,161 @@
             false
           ];
 
-        state.rollsLeft = 3;
-        state.hasRolled = false;
+
+        state.rollsLeft =
+          3;
+
+
+        state.hasRolled =
+          false;
+
 
         renderAll(false);
 
+
         window.scrollTo({
+
           top: 0,
-          behavior: "smooth"
+
+          behavior:
+            "smooth"
+
         });
+
       }
 
+
       function finishGame() {
-        state.gameOver = true;
+
+        state.gameOver =
+          true;
+
 
         const total =
           getTotalScore();
+
+
+        state.history.push(
+          total
+        );
+
+
+        saveHistory();
+
 
         if (
           total >
           state.highScore
         ) {
-          state.highScore = total;
+
+          state.highScore =
+            total;
 
           localStorage.setItem(
             "neonGulchYahtzeeHighScore",
             String(total)
           );
+
         }
 
-        els.finalScore.textContent =
-          total;
 
-        els.finalMessage.textContent =
-          getFinalMessage(total);
+        els.finalScore
+          .textContent =
+            total;
 
-        els.gameOverModal.hidden =
-          false;
+
+        els.finalMessage
+          .textContent =
+            getFinalMessage(
+              total
+            );
+
+
+        els.gameOverModal
+          .hidden =
+            false;
+
 
         renderAll(false);
+
       }
 
-      function getFinalMessage(score) {
-        if (score >= 300) {
+
+      function getFinalMessage(
+        score
+      ) {
+
+        if (
+          score >= 300
+        ) {
+
           return "Legend says the neon moon still remembers your name.";
+
         }
 
-        if (score >= 250) {
+
+        if (
+          score >= 250
+        ) {
+
           return "A first-rate bounty. The whole territory is talking.";
+
         }
 
-        if (score >= 200) {
+
+        if (
+          score >= 200
+        ) {
+
           return "Solid shooting, drifter. You leave richer than you arrived.";
+
         }
 
-        if (score >= 150) {
+
+        if (
+          score >= 150
+        ) {
+
           return "Respectable work in an unforgiving town.";
+
         }
+
 
         return "The badlands won this round. Ride again.";
+
       }
+
 
       function resetGame(
         skipConfirm = false
       ) {
+
         if (
           !skipConfirm &&
           state.turn > 0 &&
           !state.gameOver
         ) {
+
           const okay =
             window.confirm(
               "Abandon this run and start a new game?"
             );
 
-          if (!okay) {
+
+          if (
+            !okay
+          ) {
+
             return;
+
           }
+
         }
+
 
         state.dice =
           [1, 1, 1, 1, 1];
+
 
         state.held =
           [
@@ -1938,69 +3530,174 @@
             false
           ];
 
-        state.rollsLeft = 3;
-        state.hasRolled = false;
-        state.scores = {};
-        state.turn = 0;
-        state.gameOver = false;
 
-        els.gameOverModal.hidden =
-          true;
+        state.rollsLeft =
+          3;
+
+
+        state.hasRolled =
+          false;
+
+
+        state.scores =
+          {};
+
+
+        state.turn =
+          0;
+
+
+        state.gameOver =
+          false;
+
+
+        els.gameOverModal
+          .hidden =
+            true;
+
 
         renderAll(false);
 
+
         window.scrollTo({
+
           top: 0,
-          behavior: "smooth"
+
+          behavior:
+            "smooth"
+
         });
+
       }
+
 
       let toastTimer;
 
-      function showToast(message) {
-        clearTimeout(toastTimer);
 
-        els.toast.textContent =
-          message;
+      function showToast(
+        message
+      ) {
 
-        els.toast.classList.add(
-          "show"
+        clearTimeout(
+          toastTimer
         );
 
+
+        els.toast
+          .textContent =
+            message;
+
+
+        els.toast
+          .classList
+          .add(
+            "show"
+          );
+
+
         toastTimer =
-          setTimeout(() => {
-            els.toast.classList.remove(
-              "show"
-            );
-          }, 1600);
+          setTimeout(
+            () => {
+
+              els.toast
+                .classList
+                .remove(
+                  "show"
+                );
+
+            },
+            1600
+          );
+
       }
 
-      els.rollButton.addEventListener(
-        "click",
-        rollDice
-      );
 
-      els.newGameButton.addEventListener(
-        "click",
-        () => resetGame(false)
-      );
+      els.rollButton
+        .addEventListener(
+          "click",
+          rollDice
+        );
 
-      els.playAgainButton.addEventListener(
-        "click",
-        () => resetGame(true)
-      );
 
-     els.closeModalButton.addEventListener(
-        "click",
-        () => {
-          els.gameOverModal.hidden =
-            true;
+      els.newGameButton
+        .addEventListener(
+          "click",
+          () =>
+            resetGame(false)
+        );
+
+
+      els.playAgainButton
+        .addEventListener(
+          "click",
+          () =>
+            resetGame(true)
+        );
+
+
+      els.closeModalButton
+        .addEventListener(
+          "click",
+          () => {
+
+            els.gameOverModal
+              .hidden =
+                true;
+
+          }
+        );
+
+
+      /*
+       * Migration:
+       *
+       * The original game only stored one high score.
+       * The new version stores every completed game.
+       *
+       * We intentionally do NOT add the old high score
+       * to lifetime history because we don't know how
+       * many previous games you actually played.
+       */
+
+      if (
+        state.history.length > 0
+      ) {
+
+        const historicalBest =
+          Math.max(
+            ...state.history
+          );
+
+
+        if (
+          historicalBest >
+          state.highScore
+        ) {
+
+          state.highScore =
+            historicalBest;
+
+
+          localStorage.setItem(
+            "neonGulchYahtzeeHighScore",
+            String(
+              historicalBest
+            )
+          );
+
         }
-      );
+
+      }
+
 
       buildScorecard();
+
       renderAll(false);
+
+
     })();
+
   </script>
+
 </body>
 </html>
